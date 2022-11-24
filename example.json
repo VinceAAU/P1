@@ -1,0 +1,50 @@
+{
+    "stations": [
+        {
+            "name": "Aarhus H",
+            "ID": "AAH",
+            "connections": [
+                {
+                    "destination": "CPH",
+                    "time": ["19:30", "19:45", "19:55"]
+                }
+            ]
+        },
+        {
+            "name": "Copenhagen H",
+            "ID": "CPH",
+            "connections": [
+                {
+                    "times": ["20:30", "21:30", "22:30"],
+                    "destination": "AAH"
+                },
+                {
+                    "destination": "MLM",
+                    "times": ["10:20"]
+                }
+            ]
+        }
+    ],
+
+    "connections": {
+        "AAH-CPH":{
+            "routeID": "12345a",
+            "price": 10,
+            "distance": 200,
+            "type": "rail",
+            "duration": "4:30"
+        },
+        "CPH-MLM": {
+            "routeID": "12345a",
+            ...
+        },
+        {
+            "routeID": "asd123",
+            "start": "AAH",
+            "end": "CPH",
+            "price": 10,
+            "distance": 200,
+            "type": "rail",
+            "time": "4:30"
+        },
+}

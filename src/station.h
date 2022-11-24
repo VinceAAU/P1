@@ -1,30 +1,31 @@
 #include <time.h>
 
-typedef char* ID;
+typedef char[] ID;
 
-typedef enum{
-	AIR,
-	RAIL
+typedef enum {
+    AIR,
+    RAIL
 } TravelType;
 
 typedef struct {
-	Connection* timetable;
-	char* name;
-	ID id;
-} Station;
+    //The numbers on node1 and node2 do not correspond to start/end, but are rather alphabetical
+    Station* node1;
+    Station* node2;
+    ID line;
+    float price;
+    int distance;
+    int duration; // In seconds
+    TravelType type;
+} Route;
 
 typedef struct {
-	struct tm departure;
-	int journey_time; //Journey time in seconds
-	float price; //TODO: Decide if we use ints or floats
-	int distance; //Distance in km
-	Station* destination;
-	ID id;
+    Station* station;
+    Route* route;
+    struct tm[] timetable;
 } Connection;
 
 typedef struct {
-	int time;
-	int price;
-	int emissions; //In kg of CO2e 
-} Route;
-
+    char[] name;
+    ID id;
+    Connection[] connections;
+} Station;

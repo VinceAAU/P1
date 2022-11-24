@@ -1,1 +1,1 @@
-add_executable(P1)
+add_executable(P1 main.c)

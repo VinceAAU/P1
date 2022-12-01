@@ -107,6 +107,17 @@
 
             ]
         },
+        {
+            "name": "Station F",
+            "ID": "F",
+            "connections": [
+                {
+                    "destination": "E"
+                }
+
+            ]
+        },
+
 
     ],
 
@@ -190,17 +201,17 @@
             "type": "rail",
             "duration": "blank"
         },
-                 "D-W":{
-            "routeID": "DW",
+                  "E-F":{
+            "routeID": "EF",
             "price": blank,
-            "distance": 40,
+            "distance": 50,
             "type": "rail",
             "duration": "blank"
         },
-                  "E-F":{
-            "routeID": "DW",
+                   "E-I":{
+            "routeID": "EI",
             "price": blank,
-            "distance": 40,
+            "distance": 50,
             "type": "rail",
             "duration": "blank"
         },

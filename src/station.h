@@ -34,3 +34,8 @@ typedef struct Station {
     ID id;
     Connection* connections;
 } Station;
+
+/*
+ * Returns length of the station list
+ */
+size_t station_list_length(Station*);

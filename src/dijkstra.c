@@ -1,75 +1,83 @@
-//
-// Created by lasse on 25-11-2022.
-//
-
+/*
+ * TODO: Fix debugging commands to properly test
+ * TODO: If JSON checker doesn't order the route, the adjacency matrix function will have to. See line 42
+ */
 #include "dijkstra.h"
 #include <stdio.h>
 #include <malloc.h>
 #include "station.h"
 
-/** Might not be necessary if the JSON checker saves the length of the array somehow
- *
- * @param station_array
- * @return number of elements
- */
-int get_number_of_stations(Station* station_array)
+int get_number_of_connections(Station station)
 {
-    // how many bytes the array is divided by how many bytes one element is gives you the number of elements
-    return (sizeof(&station_array)/sizeof(Station));
+
+    return (sizeof(*station.connections)/sizeof(Connection));
 }
-/**
- *
- * @param number_of_stations
- * @param station_array
- * @return adjacency matrix... duuuh
- */
-int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Station* station_array )
-{
+
+int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Station* station_array ) {
     int (*adjacency_matrix)[number_of_stations] = malloc(sizeof(int[number_of_stations][number_of_stations]));
 
     // fill matrix with zeros, so stations are disconnected by default.
-    for(int j = 0; j < number_of_stations; j++) {
+    for (int j = 0; j < number_of_stations; j++) {
         for (int i = 0; i < number_of_stations; i++) {
             adjacency_matrix[i][j] = 0;
         }
     }
 
-    /* Might be a silly solution, but to create an adjacency matrix I need to know where the station
-     * from each connection is located in the array of stations. This duplicates the array and
-     * changes the ids to represent where the station is in the array, so I can jump to that station's
-     * row/column in the matrix and change the value appropriately. */
-
     // allocates for array of the same size
     Station *array = (Station *) malloc(number_of_stations * sizeof(Station));
 
     // copies in elements from first array to second, cause apparently you have to do that in C
-    for(int i = 0; i < number_of_stations; i++)
-    {
+    for (int i = 0; i < number_of_stations; i++) {
         array[i] = station_array[i];
         array[i].id = i; // changes id to array position
     }
 
+    for (int row = 0; row < number_of_stations; row++) {
 
+        int connections = get_number_of_connections(array[row]);
 
-    // for every connection in array, check travel time
-    // find the location of the connected station in the array somehow? use search algorithm or change how station ids work.
+        for (int i = 0; i < connections; i++) {
+            Connection current_connection = array[row].connections[i];
+            adjacency_matrix[row][current_connection.station->id] = array[row].connections[i].route[0].duration;
+            // assumes that route 0 is always to train route. If this isn't the case, the function will have to search for the correct route
+        }
+    }
 
 
     return *adjacency_matrix;
 }
 
-/**
- * very descriptive description
- */
 void calculate_optimal_route()
 {
 
 }
 
-/**
- * @param size
- * @param matrix
- */
+
+
+Station* debugging_data()
+{
+    Station *stations = (Station *) malloc(5 * sizeof(Station));
+
+    // connections
+    Connection* connections = (Connection *) malloc(2 * sizeof(Connection));
+
+    for(int i = 0; i < 2; i++)
+    {
+        connections[i].route->duration = i;
+    }
+
+    // ids
+    for(int i = 0; i < 5; i++)
+    {
+        stations[i].id = i;
+        stations[i].connections = connections;
+    }
+
+    return stations;
+
+}
+
+
 void print_matrix(int size, int*matrix)
 {
     int i, j;
@@ -80,3 +88,4 @@ void print_matrix(int size, int*matrix)
         printf("\n");
     }
 }
+

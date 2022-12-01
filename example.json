@@ -23,7 +23,91 @@
                     "times": ["10:20"]
                 }
             ]
-        }
+        },
+        {
+            "name": "Station A",
+            "ID": "A",
+            "connections": [
+                {
+                    "destination": "J"
+                }
+                
+                {
+                    "destination": "K"
+                }
+
+                {
+                    "destination": "C"
+                }
+            ]
+        },
+        {
+            "name": "Station B",
+            "ID": "B",
+            "connections": [
+                {
+                    "destination": "C"
+                }
+
+            ]
+        },
+        {
+            "name": "Station C",
+            "ID": "C",
+            "connections": [
+                {
+                    "destination": "A"
+                }
+                
+                {
+                    "destination": "B"
+                }
+
+                {
+                    "destination": "D"
+                }
+            ]
+        },
+        {
+            "name": "Station D",
+            "ID": "D",
+            "connections": [
+                {
+                    "destination": "C"
+                }
+                
+                {
+                    "destination": "E"
+                }
+
+                {
+                    "destination": "U"
+                }
+
+                {
+                    "destination": "W"
+                }
+            ]
+        },
+        {
+            "name": "Station E",
+            "ID": "E",
+            "connections": [
+                {
+                    "destination": "D"
+                }
+                
+                {
+                    "destination": "F"
+                }
+
+                {
+                    "destination": "I"
+                }
+
+            ]
+        },
+
     ],
 
     "connections": {
@@ -47,4 +131,81 @@
             "type": "rail",
             "time": "4:20"
         },
+        
+                "A-C":{
+            "routeID": "AC",
+            "price": blank,
+            "distance": 45,
+            "type": "rail",
+            "duration": "blank"
+        },
+
+                "A-J":{
+            "routeID": "AJ",
+            "price": blank,
+            "distance": 45,
+            "type": "rail",
+            "duration": "blank"
+        },
+
+                "A-K":{
+            "routeID": "AK",
+            "price": blank,
+            "distance": 45,
+            "type": "rail",
+            "duration": "blank"
+        },
+                "B-C":{
+            "routeID": "BC",
+            "price": blank,
+            "distance": 30,
+            "type": "rail",
+            "duration": "blank"
+        },
+                "C-D":{
+            "routeID": "CD",
+            "price": blank,
+            "distance": 75,
+            "type": "rail",
+            "duration": "blank"
+        },
+                 "D-E":{
+            "routeID": "DE",
+            "price": blank,
+            "distance": 50,
+            "type": "rail",
+            "duration": "blank"
+        },
+                "D-U":{
+            "routeID": "DU",
+            "price": blank,
+            "distance": 30,
+            "type": "rail",
+            "duration": "blank"
+        },
+                "D-W":{
+            "routeID": "DW",
+            "price": blank,
+            "distance": 40,
+            "type": "rail",
+            "duration": "blank"
+        },
+                 "D-W":{
+            "routeID": "DW",
+            "price": blank,
+            "distance": 40,
+            "type": "rail",
+            "duration": "blank"
+        },
+                  "E-F":{
+            "routeID": "DW",
+            "price": blank,
+            "distance": 40,
+            "type": "rail",
+            "duration": "blank"
+        },
+        
+        
+        
+        
 }

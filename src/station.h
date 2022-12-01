@@ -1,7 +1,11 @@
 #pragma once
 #include <time.h>
 
-typedef char[] ID;
+//We define this at the start, because Connection and Station depend on each other
+struct Station;
+typedef struct Station Station;
+
+typedef char* ID;
 
 typedef enum {
     AIR,
@@ -12,7 +16,7 @@ typedef struct {
     //The numbers on node1 and node2 do not correspond to start/end, but are rather alphabetical
     Station* node1;
     Station* node2;
-    ID line;
+    ID* line;
     float price;
     int distance;
     int duration; // In seconds
@@ -22,11 +26,11 @@ typedef struct {
 typedef struct {
     Station* station;
     Route* route;
-    struct tm[] timetable;
+    struct tm* timetable;
 } Connection;
 
-typedef struct {
-    char[] name;
+typedef struct Station {
+    char* name;
     ID id;
-    Connection[] connections;
+    Connection* connections;
 } Station;

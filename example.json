@@ -117,6 +117,116 @@
 
             ]
         },
+        {
+            "name": "Station G",
+            "ID": "G",
+            "connections": [
+                {
+                    "destination": "I"
+                }
+
+            ]
+        },
+        {
+            "name": "Station H",
+            "ID": "H",
+            "connections": [
+                {
+                    "destination": "I"
+                }
+
+            ]
+        },
+        {
+            "name": "Station I",
+            "ID": "I",
+            "connections": [
+                {
+                    "destination": "E"
+                }
+                
+                {
+                    "destination": "G"
+                }
+
+                {
+                    "destination": "H"
+                }
+
+            ]
+        },
+        {
+            "name": "Station J",
+            "ID": "J",
+            "connections": [
+                {
+                    "destination": "A"
+                }
+                
+                {
+                    "destination": "M"
+                }
+
+                {
+                    "destination": "T"
+                }
+
+                {
+                    "destination": "Q"
+                }
+
+                {
+                    "destination": "W"
+                }
+
+            ]
+        },
+        {
+            "name": "Station K",
+            "ID": "K",
+            "connections": [
+                {
+                    "destination": "A"
+                }
+                
+                {
+                    "destination": "L"
+                }
+
+            ]
+        },
+        {
+            "name": "Station L",
+            "ID": "L",
+            "connections": [
+                {
+                    "destination": "K"
+                }
+
+            ]
+        },
+        {
+            "name": "Station M",
+            "ID": "M",
+            "connections": [
+                {
+                    "destination": "J"
+                }
+                
+                {
+                    "destination": "N"
+                }
+
+                {
+                    "destination": "O"
+                }
+                
+                {
+                    "destination": "v"
+                }
+
+            ]
+        },
 
 
     ],
@@ -215,8 +325,33 @@
             "type": "rail",
             "duration": "blank"
         },
-        
-        
-        
+                    "G-I":{
+            "routeID": "GI",
+            "price": blank,
+            "distance": 20,
+            "type": "rail",
+            "duration": "blank"
+        },
+                     "H-I":{
+            "routeID": "HI",
+            "price": blank,
+            "distance": 20,
+            "type": "rail",
+            "duration": "blank"
+        },
+                      "K-L":{
+            "routeID": "KL",
+            "price": blank,
+            "distance": 20,
+            "type": "rail",
+            "duration": "blank"
+        },
+                       "K-L":{
+            "routeID": "KL",
+            "price": blank,
+            "distance": 20,
+            "type": "rail",
+            "duration": "blank"
+        },
         
 }

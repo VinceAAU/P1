@@ -5,7 +5,7 @@
 struct Station;
 typedef struct Station Station;
 
-typedef char* ID;
+typedef int ID;
 
 typedef enum {
     AIR,
@@ -16,7 +16,7 @@ typedef struct {
     //The numbers on node1 and node2 do not correspond to start/end, but are rather alphabetical
     Station* node1;
     Station* node2;
-    ID* line;
+    ID line;
     float price;
     int distance;
     int duration; // In seconds

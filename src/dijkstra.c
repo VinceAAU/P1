@@ -1,6 +1,7 @@
 /*
  * TODO: Fix debugging commands to properly test
  * TODO: If JSON checker doesn't order the route, the adjacency matrix function will have to. See line 42
+ * TODO: Write function to check through routes for something
  */
 #include "dijkstra.h"
 #include <stdio.h>
@@ -56,25 +57,31 @@ void calculate_optimal_route()
 
 Station* debugging_data()
 {
-    Station *stations = (Station *) malloc(5 * sizeof(Station));
+    Route *route = malloc(sizeof(Route));
+    Station *stations =  malloc(5 * sizeof(Station));
+    Connection *connections = malloc(2 * sizeof(Connection));
 
-    // connections
-    Connection* connections = (Connection *) malloc(2 * sizeof(Connection));
 
     for(int i = 0; i < 2; i++)
     {
-        connections[i].route->duration = i;
+        route->duration = i+1;
+        connections[i].route = route;
+        connections[i].station = &stations[i];
     }
 
-    // ids
     for(int i = 0; i < 5; i++)
     {
-        stations[i].id = i;
         stations[i].connections = connections;
     }
 
-    return stations;
+    for(int i = 0; i < 5; i++)
+    {
+        stations[i].id = i;
+    }
 
+    //printf("%d",connections[1].route[1].duration);
+
+    return stations;
 }
 
 

@@ -79,8 +79,6 @@ Station* debugging_data()
         stations[i].id = i;
     }
 
-    //printf("%d",connections[1].route[1].duration);
-
     return stations;
 }
 

@@ -227,137 +227,7 @@
 
             ]
         },
-        {
-            "name": "Station N",
-            "ID": "N",
-            "connections": [
-                {
-                    "destination": "M"
-                }
 
-            ]
-        },
-        {
-            "name": "Station O",
-            "ID": "O",
-            "connections": [
-                {
-                    "destination": "O"
-                }
-                
-            ]
-        },
-        {
-            "name": "Station P",
-            "ID": "P",
-            "connections": [
-                {
-                    "destination": "Q"
-                }
-                
-                {
-                    "destination": "V"
-                }
-
-            ]
-        },
-        {
-            "name": "Station Q",
-            "ID": "Q",
-            "connections": [
-                {
-                    "destination": "J"
-                }
-                
-                {
-                    "destination": "P"
-                }
-
-                {
-                    "destination": "R"
-                }
-
-            ]
-        },
-        {
-            "name": "Station R",
-            "ID": "R",
-            "connections": [
-                {
-                    "destination": "T"
-                }
-                
-                {
-                    "destination": "U"
-                }
-
-                {
-                    "destination": "Q"
-                }
-
-            ]
-        },
-        {
-            "name": "Station S",
-            "ID": "S",
-            "connections": [
-                {
-                    "destination": "U"
-                }
-
-            ]
-        },
-        {
-            "name": "Station T",
-            "ID": "T",
-            "connections": [
-                {
-                    "destination": "J"
-                }
-                
-                {
-                    "destination": "R"
-                }
-
-                {
-                    "destination": "W"
-                }
-
-
-            ]
-        },
-        {
-            "name": "Station U",
-            "ID": "U",
-            "connections": [
-                {
-                    "destination": "D"
-                }
-                
-                {
-                    "destination": "R"
-                }
-
-                {
-                    "destination": "S"
-                }
-
-            ]
-        },
-        {
-            "name": "Station V",
-            "ID": "V",
-            "connections": [
-                {
-                    "destination": "J"
-                }
-                
-                {
-                    "destination": "P"
-                }
-
-            ]
-        },
 
     ],
 
@@ -472,32 +342,11 @@
                       "K-L":{
             "routeID": "KL",
             "price": blank,
-            "distance": 30,
+            "distance": 20,
             "type": "rail",
             "duration": "blank"
         },
-                       "M-N":{
-            "routeID": "MN",
-            "price": blank,
-            "distance": 90,
-            "type": "rail",
-            "duration": "blank"
-        },
-                        "M-O":{
-            "routeID": "MO",
-            "price": blank,
-            "distance": 70,
-            "type": "rail",
-            "duration": "blank"
-        },
-                        "M-V":{
-            "routeID": "MV",
-            "price": blank,
-            "distance": 60,
-            "type": "rail",
-            "duration": "blank"
-        },
-                         "K-L":{
+                       "K-L":{
             "routeID": "KL",
             "price": blank,
             "distance": 20,

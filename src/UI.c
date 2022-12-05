@@ -7,7 +7,8 @@
 #include "UI.h"
 #include "station.h"
 #include <stdio.h>
-
+#include <malloc.h>
+/*
 char* input_from_user ()
 {
     char user_input_start_station [100],
@@ -36,17 +37,40 @@ char* input_from_user ()
 
         // do something to get first station again that is not stupid
     }
-
-
-
 }
+*/
+
+char* start_station_from_user (Station* station){
+    char* user_input_start_station = malloc(sizeof(char));
+    int station_is_valid = 0;
+
+    while (station_is_valid == 0){
+    printf("Where does your journey start from\n");
+    scanf("%s ", user_input_start_station);
+    station_is_valid = validate_input(user_input_start_station, Station* station);
+    }
+    return user_input_start_station;
+}
+
+char* end_station_from_user (Station* station){
+    char* user_input_end_station = malloc (sizeof(char));
+    int station_is_valid = 0;
+
+    while (station_is_valid == 0){
+        printf("Where does your journey end\n");
+        scanf("%s ", user_input_end_station);
+        station_is_valid = validate_input(user_input_end_station, Station* station);
+    }
+    return user_input_end_station;
+}
+
 
 // Function for checking whether the input station is valid or invalid
 int validate_input(int user_input_station, Station station){
 
     int number_of_stations = sizeof(station.id);
 
-    for (int i = 0; i < station_list_length(); i++){
+    for (int i = 0; i < number_of_stations; i++){
 
         if (station.id == user_input_station) {
             return 1;

@@ -80,3 +80,53 @@ int validate_input(int user_input_station, Station station){
         }
     }
 }
+
+
+void output_result(float train_sum_of_time, float train_co2_emitted, float train_sum_of_price,
+                   float plane_sum_of_time, float plane_co2_emitted, float plane_sum_of_price,
+                   int preference){
+    int winner = -1;
+    printf("For your preference you should choose:");
+    switch (preference) {
+        case 0: //time
+            if(train_sum_of_time < plane_sum_of_time){
+                printf(" Train\n");
+                winner = 0;
+            }else{
+                printf(" Plane\n");
+                winner = 1;
+            }
+            break;
+        case 1: //CO2
+            if(train_co2_emitted < plane_co2_emitted){
+                printf(" Train\n");
+                winner = 0;
+            }else{
+                printf(" Plane\n");
+                winner = 1;
+            }
+            break;
+        case 2: //price
+            if(train_sum_of_price < plane_sum_of_price){
+                printf(" Train\n");
+                winner = 0;
+            }else{
+                printf(" Plane\n");
+                winner = 1;
+            }
+            break;
+        default:
+            printf("\nError\n");
+            break;
+    }
+
+    if(winner == 0){
+        printf("Train: Travel time: %lf minutes, Co2 emission: %lf kg, estimated kost: %lf kr.\n", train_sum_of_time, train_co2_emitted, train_sum_of_price);
+        printf("Plane: Travel time: %lf minutes, Co2 emission: %lf kg, estimated kost: %lf kr.\n", plane_sum_of_time, plane_co2_emitted, plane_sum_of_price);
+    }else{
+        printf("Plane: Travel time: %lf minutes, Co2 emission: %lf kg, estimated kost: %lf kr.\n", plane_sum_of_time, plane_co2_emitted, plane_sum_of_price);
+        printf("Train: Travel time: %lf minutes, Co2 emission: %lf kg, estimated kost: %lf kr.\n", train_sum_of_time, train_co2_emitted, train_sum_of_price);
+    }
+
+}
+

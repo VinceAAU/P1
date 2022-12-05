@@ -508,10 +508,45 @@
             "type": "rail",
             "duration": "blank"
         },
-                         "M-N":{
-            "routeID": "MN",
+                         "M-V":{
+            "routeID": "MV",
             "price": blank,
-            "distance": 90,
+            "distance": 60,
+            "type": "rail",
+            "duration": "blank"
+        },
+                          "P-Q":{
+            "routeID": "PQ",
+            "price": blank,
+            "distance": 35,
+            "type": "rail",
+            "duration": "blank"
+        },
+                          "P-V":{
+            "routeID": "PV",
+            "price": blank,
+            "distance": 35,
+            "type": "rail",
+            "duration": "blank"
+        },
+                          "Q-R":{
+            "routeID": "QR",
+            "price": blank,
+            "distance": 40,
+            "type": "rail",
+            "duration": "blank"
+        },
+                           "R-T":{
+            "routeID": "RT",
+            "price": blank,
+            "distance": 45,
+            "type": "rail",
+            "duration": "blank"
+        },
+                          "R-U":{
+            "routeID": "RU",
+            "price": blank,
+            "distance": 35,
             "type": "rail",
             "duration": "blank"
         },

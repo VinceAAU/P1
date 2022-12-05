@@ -550,5 +550,18 @@
             "type": "rail",
             "duration": "blank"
         },
-        
+                           "S-U":{
+            "routeID": "SU",
+            "price": blank,
+            "distance": 90,
+            "type": "rail",
+            "duration": "blank"
+        },
+                           "T-W":{
+            "routeID": "TW",
+            "price": blank,
+            "distance": 20,
+            "type": "rail",
+            "duration": "blank"
+        },
 }

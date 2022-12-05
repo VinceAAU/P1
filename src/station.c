@@ -8,7 +8,7 @@ size_t station_list_length(Station* station_list){
         return 0;
     }
 
-    int i = 0;
+    size_t i = 0;
     while(station_list[i].name != NULL){
         i++;
     }

@@ -222,14 +222,162 @@
                 }
                 
                 {
-                    "destination": "v"
+                    "destination": "V"
+                }
+
+            ]
+        },
+        {
+            "name": "Station N",
+            "ID": "N",
+            "connections": [
+                {
+                    "destination": "M"
+                }
+
+            ]
+        },
+        {
+            "name": "Station O",
+            "ID": "O",
+            "connections": [
+                {
+                    "destination": "M"
+                }
+
+            ]
+        },
+        {
+            "name": "Station P",
+            "ID": "P",
+            "connections": [
+                {
+                    "destination": "Q"
+                }
+                
+                {
+                    "destination": "V"
+                }
+
+            ]
+        },
+        {
+            "name": "Station Q",
+            "ID": "Q",
+            "connections": [
+                {
+                    "destination": "J"
+                }
+                
+                {
+                    "destination": "P"
+                }
+
+                {
+                    "destination": "R"
+                }
+
+            ]
+        },
+        {
+            "name": "Station R",
+            "ID": "R",
+            "connections": [
+                {
+                    "destination": "Q"
+                }
+                
+                {
+                    "destination": "S"
+                }
+
+                {
+                    "destination": "T"
+                }
+
+            ]
+        },
+        {
+            "name": "Station S",
+            "ID": "S",
+            "connections": [
+                {
+                    "destination": "U"
+                }
+
+            ]
+        },
+        {
+            "name": "Station T",
+            "ID": "T",
+            "connections": [
+                {
+                    "destination": "J"
+                }
+                
+                {
+                    "destination": "R"
+                }
+
+                {
+                    "destination": "W"
+                }
+
+            ]
+        },
+        {
+            "name": "Station U",
+            "ID": "U",
+            "connections": [
+                {
+                    "destination": "D"
+                }
+                
+                {
+                    "destination": "R"
+                }
+
+                {
+                    "destination": "S"
+                }
+
+            ]
+        },
+        {
+            "name": "Station V",
+            "ID": "V",
+            "connections": [
+                {
+                    "destination": "M"
+                }
+                
+                {
+                    "destination": "P"
+                }
+
+            ]
+        },
+        {
+            "name": "Station W",
+            "ID": "W",
+            "connections": [
+                {
+                    "destination": "D"
+                }
+                
+                {
+                    "destination": "J"
+                }
+
+                {
+                    "destination": "T"
                 }
 
             ]
         },
 
 
-    ],
+],
 
     "connections": {
         "AAH-CPH":{
@@ -342,14 +490,28 @@
                       "K-L":{
             "routeID": "KL",
             "price": blank,
-            "distance": 20,
+            "distance": 30,
             "type": "rail",
             "duration": "blank"
         },
-                       "K-L":{
-            "routeID": "KL",
+                       "M-N":{
+            "routeID": "MN",
             "price": blank,
-            "distance": 20,
+            "distance": 90,
+            "type": "rail",
+            "duration": "blank"
+        },
+                        "M-O":{
+            "routeID": "MO",
+            "price": blank,
+            "distance": 70,
+            "type": "rail",
+            "duration": "blank"
+        },
+                         "M-N":{
+            "routeID": "MN",
+            "price": blank,
+            "distance": 90,
             "type": "rail",
             "duration": "blank"
         },

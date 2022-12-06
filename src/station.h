@@ -39,3 +39,5 @@ typedef struct Station {
  * Returns length of the station list
  */
 size_t station_list_length(Station*);
+
+Station* get_station_by_id(Station* station_list, ID id);

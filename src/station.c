@@ -15,3 +15,14 @@ size_t station_list_length(Station* station_list){
 
     return i;
 }
+
+// Station list is not sorted, so we use a linear search, making this
+// function quite slow.
+Station* get_station_by_id(Station* station_list, ID id){
+    for (int i = 0; i < station_list_length(station_list); i++) {
+        if(station_list[i].id==id){
+            return station_list+i;
+        }
+    }
+    return NULL; //If no station is found
+}

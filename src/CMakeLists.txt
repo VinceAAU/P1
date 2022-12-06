@@ -1,7 +1,10 @@
 add_executable(P1
         main.c
-        calculate.c
-        dijkstra.c
-        JSON-interface.c
-        station.c
-        UI.c)
+        )
+
+add_library(UI UI.c)
+
+
+
+
+target_link_libraries(P1 UI)

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 char *read_entire_file(char *filename);
 ID convert_string_to_id(char* string_id);
@@ -22,8 +23,7 @@ Station *retrieve_JSON_data(char *filename) {
         fprintf(stderr, "Error: station list is empty\n");
     }
 
-    Station *station_array = malloc(station_array_length * sizeof(Station));
-
+    Station *station_array = malloc((station_array_length+1) * sizeof(Station));
 
     //Documentation recommends this over simple iteration, as
     //it is more efficient
@@ -35,18 +35,57 @@ Station *retrieve_JSON_data(char *filename) {
         strncpy(station_array[i].name, name, strlen(name)+1);
 
         char* string_id = cJSON_GetObjectItem(station_json, "ID")->valuestring;
-        //FIXME: How do we convert station ID's to numbers?????
+
         station_array[i].id = convert_string_to_id(string_id);
 
-        cJSON* connection_array_json = cJSON_GetObjectItem(station_json, "connections");
+        /*cJSON* connection_array_json = cJSON_GetObjectItem(station_json, "connections");
         station_array[i].connections = calloc(cJSON_GetArraySize(connection_array_json)+1, sizeof(Connection));
         cJSON* connection_json;
         cJSON_ArrayForEach(connection_json, connection_array_json){
             //FIXME: Uhh how do we reference stations that don't yet exist?
-        }
+        }*/
 
         i++;
     }
+    station_array[i] = (Station){0};
+
+    //The first pass doesn't check connections (because the stations don't exist yet)
+    //We do that now
+    i = 0;
+    cJSON_ArrayForEach(station_json, station_array_json){
+        int j = 0;
+        cJSON* station_connection_array_json = cJSON_GetObjectItem(station_json, "connections");
+        Connection* station_connection_array = malloc((1+cJSON_GetArraySize(station_connection_array_json))*sizeof(Connection));
+        cJSON* station_connection_json;
+        cJSON_ArrayForEach(station_connection_json, station_connection_array_json){
+            Connection connection;
+
+            char* destination_str = cJSON_GetObjectItem(station_connection_json, "destination")->valuestring;
+            connection.station = get_station_by_id(station_array, convert_string_to_id(destination_str));
+
+            int k = 0;
+            cJSON* timetable_json = cJSON_GetObjectItem(station_connection_json, "timetable");
+            struct tm* timetable = malloc((cJSON_GetArraySize(timetable_json)+1) * sizeof(struct tm));
+            cJSON* time_json;
+            cJSON_ArrayForEach(time_json, timetable_json){
+                char* time_str = time_json->valuestring;
+                struct tm time_structure;
+                strptime(time_str, "%H:%M", &time_structure);
+                timetable[k] = time_structure;
+                k++;
+            }
+            timetable[k] = (struct tm){0};
+
+            Route route;
+            cJSON* route_json = cJSON_GetObjectItem(
+                    cJSON_GetObjectItem(json, "connections"),
+
+        }
+        station_array[i].connections;
+        i++;
+    }
+
+    cJSON_Delete(json);
 }
 
 //This function might fail if the file is larger than 2GB. If we want

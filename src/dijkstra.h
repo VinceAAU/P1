@@ -9,4 +9,4 @@ void calculate_optimal_route();
 
 void print_matrix(int size, int*matrix);
 
-Station* debugging_data();
+Station* debugging_data(int size);

@@ -17,7 +17,7 @@ size_t connection_list_length(Connection* connection_list) {
     }
 
     size_t i = 0;
-    while(connection_list[i].station->name != NULL){
+    while(connection_list[i].station != NULL){
         i++;
     }
 
@@ -37,7 +37,7 @@ float calculate_price(Station* stations) {
     for (size_t i = 0; i < arr_len; ++i) {
         size_t connections = connection_list_length(stations[i].connections);
         for (size_t j = 0; j < connections; ++j) {
-            if (stations[i].connections[j].station->id == stations[i + 1].id) {
+            if (stations[i].connections[j].station->id == stations[i+1].id) {
                 sum_of_prices += stations[i].connections[j].route->price;
             }
         }
@@ -55,7 +55,6 @@ float calculate_price(Station* stations) {
 float calculate_co2(Station* stations){
     float result = 0;
     size_t arr_len = station_list_length(stations);
-
     for (size_t i = 0; i < arr_len; ++i) {
         size_t connections = connection_list_length(stations[i].connections);
         for (size_t j = 0; j < connections; ++j) {

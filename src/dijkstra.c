@@ -9,11 +9,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-int get_number_of_connections(Station* station)
-{
-    int size = (sizeof(station->connections)/sizeof(Connection));
-    return size;
-}
 
 int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Station* station_array ) {
     int (*adjacency_matrix)[number_of_stations] = malloc(sizeof(int[number_of_stations][number_of_stations]));
@@ -36,10 +31,10 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Stat
 
     for (int row = 0; row < number_of_stations; row++) {
 
-        int connections = get_number_of_connections(array[row].connections);
+        int connections = 3; // TODO: replace with connection_list_length from station.h
         printf("There are %d connections for station %d\n",connections, row);
 
-        for(int j = 0; j < 3; j++)
+        for(int j = 0; j < connections; j++)
         {
             printf("%d\n", array[row].connections[j].station->id);
         }

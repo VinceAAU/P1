@@ -407,6 +407,13 @@
             "type": "rail",
             "duration": "blank"
         },
+        "J-T": {
+            "lineID": 107,
+            "price": "",
+            "distance": 40,
+            "type": "rail",
+            "duration": "blank"
+        },
         "J-W": {
             "lineID": 103,
             "price": "",

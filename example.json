@@ -398,6 +398,22 @@
             "type": "rail",
             "duration": "blank"
         },
+         "J-T",
+        {
+            "routeID": "JT",
+            "price": "",
+            "distance": 40,
+            "type": "rail",
+            "duration": "blank"
+        },
+        "J-W",
+        {
+            "routeID": "JW",
+            "price": "",
+            "distance": 55,
+            "type": "rail",
+            "duration": "blank"
+        },
         "K-L",
         {
             "routeID": "KL",

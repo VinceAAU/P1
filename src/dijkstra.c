@@ -5,13 +5,14 @@
  */
 #include "dijkstra.h"
 #include <stdio.h>
-#include <malloc.h>
 #include "station.h"
+#include <stdlib.h>
+#include <time.h>
 
-int get_number_of_connections(Station station)
+int get_number_of_connections(Station* station)
 {
-
-    return (sizeof(*station.connections)/sizeof(Connection));
+    int size = (sizeof(station->connections)/sizeof(Connection));
+    return size;
 }
 
 int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Station* station_array ) {
@@ -35,7 +36,13 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Stat
 
     for (int row = 0; row < number_of_stations; row++) {
 
-        int connections = get_number_of_connections(array[row]);
+        int connections = get_number_of_connections(array[row].connections);
+        printf("There are %d connections for station %d\n",connections, row);
+
+        for(int j = 0; j < 3; j++)
+        {
+            printf("%d\n", array[row].connections[j].station->id);
+        }
 
         for (int i = 0; i < connections; i++) {
             Connection current_connection = array[row].connections[i];
@@ -55,28 +62,40 @@ void calculate_optimal_route()
 
 
 
-Station* debugging_data()
+Station* debugging_data(int size)
 {
-    Route *route = malloc(sizeof(Route));
-    Station *stations =  malloc(5 * sizeof(Station));
-    Connection *connections = malloc(2 * sizeof(Connection));
+    // doesn't free of the memory it uses but hardly matters because it's for debugging only.
+    Route *route = malloc(2 * sizeof(Route));
+    Station *stations =  malloc(size * sizeof(Station));
+    Connection *connections = malloc(3 * sizeof(Connection));
 
+    route[0].duration = 5;
+    route[1].duration = 7;
 
-    for(int i = 0; i < 2; i++)
+    srand(time(0));
+
+    for(int i = 0; i < size; i++)
     {
-        route->duration = i+1;
-        connections[i].route = route;
-        connections[i].station = &stations[i];
+        stations[i].connections = malloc(3 * sizeof(Connection));
+    }
+    for(int i = 0; i < size; i++)
+    {
+        for(int j = 0; j < 3; j++)
+        {
+            stations[i].connections[j].route = &route[rand()%2];
+           stations[i].connections[j].station = &stations[rand()%size];
+        }
     }
 
-    for(int i = 0; i < 5; i++)
-    {
-        stations[i].connections = connections;
-    }
 
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < size; i++)
     {
         stations[i].id = i;
+    }
+
+    for(int j = 0; j < 3; j++)
+    {
+        printf("%d\n", stations[0].connections[j].station->id);
     }
 
     return stations;

@@ -5,4 +5,3 @@
 float calculate_price(Station*);
 float calculate_co2(Station*);
 size_t connection_list_length(Connection*);
-size_t route_list_length(Route*);

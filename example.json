@@ -398,14 +398,6 @@
             "type": "rail",
             "duration": "blank"
         },
-        "J-T",
-        {
-            "lineID": 107,
-            "price": "",
-            "distance": 40,
-            "type": "rail",
-            "duration": "blank"
-        },
         "J-M",
         {
             "lineID": 109,
@@ -419,6 +411,14 @@
             "lineID": 101,
             "price": "",
             "distance": 75,
+            "type": "rail",
+            "duration": "blank"
+        },
+        "J-T",
+        {
+            "lineID": 107,
+            "price": "",
+            "distance": 40,
             "type": "rail",
             "duration": "blank"
         },

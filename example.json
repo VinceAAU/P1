@@ -301,222 +301,195 @@
             ]
         }
     ],
-    "routes": [
-        "A-C",
-        {
+    "routes": {
+        "A-C": {
             "lineID": 100,
             "price": "",
             "distance": 45,
             "type": "rail",
             "duration": "blank"
         },
-        "A-J",
-        {
+        "A-J": {
             "lineID": 101,
             "price": "",
             "distance": 45,
             "type": "rail",
             "duration": "blank"
         },
-        "A-K",
-        {
+        "A-K": {
             "lineID": 101,
             "price": "",
             "distance": 45,
             "type": "rail",
             "duration": "blank"
         },
-        "B-C",
-        {
+        "B-C": {
             "lineID": 102,
             "price": "",
             "distance": 30,
             "type": "rail",
             "duration": "blank"
         },
-        "C-D",
-        {
+        "C-D": {
             "lineID": 102,
             "price": "",
             "distance": 75,
             "type": "rail",
             "duration": "blank"
         },
-        "D-E",
-        {
+        "D-E": {
             "lineID": 103,
             "price": "",
             "distance": 50,
             "type": "rail",
             "duration": "blank"
         },
-        "D-U",
-        {
+        "D-U": {
             "lineID": 104,
             "price": "",
             "distance": 30,
             "type": "rail",
             "duration": "blank"
         },
-        "D-W",
-        {
+        "D-W": {
             "lineID": 103,
             "price": "",
             "distance": 40,
             "type": "rail",
             "duration": "blank"
         },
-        "E-F",
-        {
+        "E-F": {
             "lineID": 105,
             "price": "",
             "distance": 50,
             "type": "rail",
             "duration": "blank"
         },
-        "E-I",
-        {
+        "E-I": {
             "lineID": 103,
             "price": "",
             "distance": 50,
             "type": "rail",
             "duration": "blank"
         },
-        "G-I",
-        {
+        "G-I": {
             "lineID": 103,
             "price": "",
             "distance": 20,
             "type": "rail",
             "duration": "blank"
         },
-        "H-I",
-        {
+        "H-I": {
             "lineID": 106,
             "price": "",
             "distance": 20,
             "type": "rail",
             "duration": "blank"
         },
-        "J-T",
-        {
+        "J-T": {
             "lineID": 107,
             "price": "",
             "distance": 40,
             "type": "rail",
             "duration": "blank"
         },
-        "J-M",
-        {
+        "J-M": {
             "lineID": 109,
             "price": "",
             "distance": 65,
             "type": "rail",
             "duration": "blank"
         },
-         "J-Q",
-        {
+        "J-Q": {
             "lineID": 101,
             "price": "",
             "distance": 75,
             "type": "rail",
             "duration": "blank"
         },
-        "J-W",
-        {
+        "J-W": {
             "lineID": 103,
             "price": "",
             "distance": 55,
             "type": "rail",
             "duration": "blank"
         },
-        "K-L",
-        {
+        "K-L": {
             "lineID": 101,
             "price": "",
             "distance": 30,
             "type": "rail",
             "duration": "blank"
         },
-        "M-N",
-        {
+        "M-N": {
             "lineID": 108,
             "price": "",
             "distance": 90,
             "type": "rail",
             "duration": "blank"
         },
-        "M-O",
-        {
+        "M-O": {
             "lineID": 109,
             "price": "",
             "distance": 70,
             "type": "rail",
             "duration": "blank"
         },
-        "M-V",
-        {
+        "M-V": {
             "lineID": 110,
             "price": "",
             "distance": 60,
             "type": "rail",
             "duration": "blank"
         },
-        "P-Q",
-        {
+        "P-Q": {
             "lineID": 104,
             "price": "",
             "distance": 35,
             "type": "rail",
             "duration": "blank"
         },
-        "P-V",
-        {
+        "P-V": {
             "lineID": 110,
             "price": "",
             "distance": 35,
             "type": "rail",
             "duration": "blank"
         },
-        "Q-R",
-        {
+        "Q-R": {
             "lineID": 104,
             "price": "",
             "distance": 40,
             "type": "rail",
             "duration": "blank"
         },
-        "R-T",
-        {
+        "R-T": {
             "lineID": 111,
             "price": "",
             "distance": 45,
             "type": "rail",
             "duration": "blank"
         },
-        "R-U",
-        {
+        "R-U": {
             "lineID": 104,
             "price": "",
             "distance": 35,
             "type": "rail",
             "duration": "blank"
         },
-        "S-U",
-        {
+        "S-U": {
             "lineID": 112,
             "price": "",
             "distance": 90,
             "type": "rail",
             "duration": "blank"
         },
-        "T-W",
-        {
+        "T-W": {
             "lineID": 111,
             "price": "",
             "distance": 20,
             "type": "rail",
             "duration": "blank"
         }
-    ]
+    }
 }

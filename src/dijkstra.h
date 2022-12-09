@@ -4,7 +4,7 @@
 int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Station* station_array);
 
 
-void calculate_optimal_route();
+void calculate_optimal_route(int* G, int startnode, int number_of_stations);
 
 
 void print_matrix(int size, int*matrix);

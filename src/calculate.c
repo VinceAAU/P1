@@ -25,6 +25,21 @@ size_t connection_list_length(Connection* connection_list) {
 }
 
 /**
+ * Takes the time and splits them up in hours and minutes
+ * Converts the hours and minutes to seconds and adds them into the seconds variable
+ */
+int string_to_seconds(char* string) {
+int hours, minutes, seconds;
+//Etellerandet skal ændres senere, det var bare for at teste
+char etellerandet[] = "15;16";
+
+sscanf(etellerandet, "%d %*c %d", &hours, &minutes);
+
+seconds = (hours * 3600) + (minutes * 60);
+
+return seconds;
+}
+/**
  * Takes the sum of all the prices on the route which has been selected as the optimal route.
  * @param stations The array of stations that contain the optimal route.
  * @return The function returns the price of the journey.

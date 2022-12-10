@@ -1,5 +1,5 @@
 #include "calculate.h"
-#include "station.c" //Probably need to do some CMake stuff if we don't want to include the .c files.
+#include "station.c"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -39,6 +39,7 @@ seconds = (hours * 3600) + (minutes * 60);
 
 return seconds;
 }
+
 /**
  * Takes the sum of all the prices on the route which has been selected as the optimal route.
  * @param stations The array of stations that contain the optimal route.
@@ -47,11 +48,11 @@ return seconds;
 float calculate_price(Station* stations) {
 
     float sum_of_prices = 0;
-    size_t arr_len = station_list_length(stations);
+    size_t stations_length = station_list_length(stations);
 
-    for (size_t i = 0; i < arr_len; ++i) {
-        size_t connections = connection_list_length(stations[i].connections);
-        for (size_t j = 0; j < connections; ++j) {
+    for (size_t i = 0; i < stations_length; ++i) {
+        size_t connections_length = connection_list_length(stations[i].connections);
+        for (size_t j = 0; j < connections_length; ++j) {
             if (stations[i].connections[j].station->id == stations[i+1].id) {
                 sum_of_prices += stations[i].connections[j].route->price;
             }
@@ -69,10 +70,10 @@ float calculate_price(Station* stations) {
  */
 float calculate_co2(Station* stations){
     float result = 0;
-    size_t arr_len = station_list_length(stations);
-    for (size_t i = 0; i < arr_len; ++i) {
-        size_t connections = connection_list_length(stations[i].connections);
-        for (size_t j = 0; j < connections; ++j) {
+    size_t stations_length = station_list_length(stations);
+    for (size_t i = 0; i < stations_length; ++i) {
+        size_t connections_length = connection_list_length(stations[i].connections);
+        for (size_t j = 0; j < connections_length; ++j) {
             if (stations[i].connections[j].station->id == stations[i+1].id) {
                 switch(stations[i].connections[j].route->type) {
                     case AIR:

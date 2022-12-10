@@ -46,7 +46,6 @@ return seconds;
  * @return The function returns the price of the journey.
  */
 float calculate_price(Station* stations) {
-
     float sum_of_prices = 0;
     size_t stations_length = station_list_length(stations);
 
@@ -71,6 +70,7 @@ float calculate_price(Station* stations) {
 float calculate_co2(Station* stations){
     float result = 0;
     size_t stations_length = station_list_length(stations);
+
     for (size_t i = 0; i < stations_length; ++i) {
         size_t connections_length = connection_list_length(stations[i].connections);
         for (size_t j = 0; j < connections_length; ++j) {
@@ -90,6 +90,5 @@ float calculate_co2(Station* stations){
         }
     }
 
-    //Set the actual value of AIR_CO2_PER_KM and RAIL_CO2_PER_KM to the desired values.
     return result;
 }

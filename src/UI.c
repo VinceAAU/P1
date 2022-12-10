@@ -50,7 +50,9 @@ Station* journey_start_time_from_user(Station* station) {
     scanf("%d:%d", &hours, &minutes);
 }
 
-
+/*
+ * TODO: Add change of train/plane at which stations
+ */
 void output_result(int train_sum_of_time, float train_co2_emitted, float train_sum_of_price,
                    int plane_sum_of_time, float plane_co2_emitted, float plane_sum_of_price,
                    int preference){

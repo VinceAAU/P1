@@ -26,7 +26,8 @@ typedef struct {
 typedef struct {
     Station* station;
     Route* route;
-    struct tm* timetable;
+    int* timetable; //Number of seconds after midnight
+    size_t timetable_length;
 } Connection;
 
 typedef struct Station {

@@ -7,6 +7,19 @@
 
 #define INFINITY 999999 // must be higher than all route durations combined.
 
+Station * index_station_array(int number_of_stations, Station* station_array)
+{
+    Station *array = (Station *) malloc(number_of_stations * sizeof(Station));
+
+    // copies in elements from first array to second, cause apparently you have to do that in C
+    for (int i = 0; i < number_of_stations; i++) {
+        array[i] = station_array[i];
+        array[i].id = i; // changes id to array position
+    }
+
+    return array;
+}
+
 int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Station* station_array ) {
     int (*adjacency_matrix)[number_of_stations] = malloc(sizeof(int[number_of_stations][number_of_stations]));
 
@@ -18,13 +31,7 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Stat
     }
 
     // allocates for array of the same size
-    Station *array = (Station *) malloc(number_of_stations * sizeof(Station));
-
-    // copies in elements from first array to second, cause apparently you have to do that in C
-    for (int i = 0; i < number_of_stations; i++) {
-        array[i] = station_array[i];
-        array[i].id = i; // changes id to array position
-    }
+    Station* indexed_array = index_station_array(number_of_stations, station_array);
 
     for (int row = 0; row < number_of_stations; row++) {
 
@@ -37,18 +44,21 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Stat
         }
 
         for (int i = 0; i < connections; i++) {
-            Connection current_connection = array[row].connections[i];
-            adjacency_matrix[row][current_connection.station->id] = array[row].connections[i].route[0].duration;
+            Connection current_connection = indexed_array[row].connections[i];
+            adjacency_matrix[row][current_connection.station->id] = indexed_array[row].connections[i].route[0].duration;
             // If JSON checker doesn't order the route, the adjacency matrix function will have to.
         }
     }
 
-
     return *adjacency_matrix;
 }
 
-void calculate_optimal_route(int* G, int startnode, int number_of_stations)
+
+
+Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_of_stations, Station* station_array)
 {
+    Station* indexed_array = index_station_array(number_of_stations, station_array);
+
     int cost[number_of_stations][number_of_stations], distance[number_of_stations], pred[number_of_stations];
     int visited[number_of_stations], count, mindistance, nextnode, i, j;
     //pred[] stores the predecessor of each node
@@ -90,7 +100,7 @@ void calculate_optimal_route(int* G, int startnode, int number_of_stations)
     }
 
     //print the path and distance of each node
-    for (i = 0; i < number_of_stations; i++)
+    for (i = 0; i < number_of_stations; i++) {
         if (i != startnode) {
             printf("\nDistance of node %d = %d", i, distance[i]);
             printf("\nPath = %d", i);
@@ -100,8 +110,26 @@ void calculate_optimal_route(int* G, int startnode, int number_of_stations)
                 printf("<-%d", j);
             } while (j != startnode);
         }
-}
+    }
+/*
+    j = endnode;
+    int counter = 0;
+    do {
+        j = pred[j];
+        counter ++;
+    } while (j != startnode);
 
+    Station* optimal_path = malloc(sizeof(Station)*counter);
+
+    for(i = 0;j != startnode; i++ )
+    {
+        j = pred[j];
+        optimal_path[i] = station_array[j];
+    }
+
+    return optimal_path;
+*/
+}
 
 Station* debugging_data(int size)
 {
@@ -140,7 +168,6 @@ Station* debugging_data(int size)
     return stations;
 }
 
-
 void print_matrix(int size, int*matrix)
 {
     int i, j;
@@ -151,4 +178,14 @@ void print_matrix(int size, int*matrix)
         printf("\n");
     }
 }
+
+void debug_print_stations(int number_of_stations, Station* statio_array)
+{
+    for(int i = 0; i < number_of_stations; i++)
+    {
+        printf("Station: %d", statio_array[i].id);
+    }
+
+}
+
 

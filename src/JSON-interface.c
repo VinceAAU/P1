@@ -4,10 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
+
+#define MAXIMUM_STATION_ID_LENGTH 1000
 
 char *read_entire_file(char *filename);
 ID convert_string_to_id(char* string_id);
+int string_to_seconds(char*);
+char *get_route_id_str(char*, char*);
 
 //This function DOES NOT check if the JSON is valid, and will break
 //down quietly (which is bad).
@@ -50,7 +53,38 @@ Station *retrieve_JSON_data(char *filename) {
     station_array[i] = (Station){0};
 
     //The first pass doesn't check connections (because the stations don't exist yet)
-    //We do that now
+    //We will do that at the end
+
+    //Put all routes into memory
+    cJSON* route_array_json = cJSON_GetObjectItem(json, "connections");
+    Route* route_array = malloc((cJSON_GetArraySize(route_array_json) + 1) * sizeof(Route));
+    cJSON* route_json;
+    i = 0;
+    cJSON_ArrayForEach(route_json, route_array_json){
+        Route route;
+        char* routeID = route_json->string; //TODO: Name this with whatever name Lasse gives this
+        char* station_string_a = malloc(sizeof(char) * (MAXIMUM_STATION_ID_LENGTH+1));
+        char* station_string_b = malloc(sizeof(char) * (MAXIMUM_STATION_ID_LENGTH+1));
+        sscanf(routeID, "%s:%s", station_string_a, station_string_b);
+
+        route.node1 = get_station_by_id(station_array, convert_string_to_id(station_string_a));
+        route.node2 = get_station_by_id(station_array, convert_string_to_id(station_string_b));
+        free(station_string_a);
+        free(station_string_b);
+        route.line = cJSON_GetObjectItem(route_json, "lineID")->valueint;
+        route.price = cJSON_GetNumberValue(cJSON_GetObjectItem(route_json, "price"));
+        route.distance = cJSON_GetObjectItem(route_json, "distance")->valueint;
+        route.duration = string_to_seconds(cJSON_GetObjectItem(route_json, "duration")->valuestring);
+        if(strcmp(cJSON_GetObjectItem(route_json, "type")->valuestring, "rail")==0){
+            route.type = RAIL;
+        } else {
+            route.type = AIR;
+        }
+
+        route_array[i] = route;
+        i++;
+    }
+
     i = 0;
     cJSON_ArrayForEach(station_json, station_array_json){
         int j = 0;
@@ -60,32 +94,56 @@ Station *retrieve_JSON_data(char *filename) {
         cJSON_ArrayForEach(station_connection_json, station_connection_array_json){
             Connection connection;
 
+            //Get Connection station
             char* destination_str = cJSON_GetObjectItem(station_connection_json, "destination")->valuestring;
             connection.station = get_station_by_id(station_array, convert_string_to_id(destination_str));
 
+            //Get Connection timetable
             int k = 0;
             cJSON* timetable_json = cJSON_GetObjectItem(station_connection_json, "timetable");
-            struct tm* timetable = malloc((cJSON_GetArraySize(timetable_json)+1) * sizeof(struct tm));
+            int* timetable = malloc((cJSON_GetArraySize(timetable_json)) * sizeof(int));
             cJSON* time_json;
             cJSON_ArrayForEach(time_json, timetable_json){
                 char* time_str = time_json->valuestring;
-                struct tm time_structure;
-                strptime(time_str, "%H:%M", &time_structure);
-                timetable[k] = time_structure;
+                timetable[k] = string_to_seconds(time_str);
                 k++;
             }
-            timetable[k] = (struct tm){0};
+            connection.timetable = timetable;
+            connection.timetable_length = cJSON_GetArraySize(timetable_json);
+
+            char* beginning_str = cJSON_GetObjectItem(station_json, "ID")->valuestring;
 
             Route route;
-            cJSON* route_json = cJSON_GetObjectItem(
-                    cJSON_GetObjectItem(json, "connections"),
 
+            //char* route_id_str = malloc((strlen(beginning_str) + 1 + strlen(destination_str) + 1) * sizeof(char));
+            char* route_id_str = get_route_id_str(beginning_str, destination_str);
+            route_json = cJSON_GetObjectItem(cJSON_GetObjectItem(json, "routes"),
+                                             route_id_str);
+            free(route_id_str);
+
+            struct Station* station_a = get_station_by_id(station_array, convert_string_to_id(beginning_str));
+            struct Station* station_b = get_station_by_id(station_array, convert_string_to_id(destination_str));
+
+            route.node1    = (station_a->id) > (station_b->id) ? station_a : station_b;
+            route.node2    = (station_a->id) < (station_b->id) ? station_a : station_b;
+            route.line     = cJSON_GetObjectItem(route_json, "lineID"  )->valueint;
+            route.price    = cJSON_GetObjectItem(route_json, "price"   )->valuedouble;
+            route.distance = cJSON_GetObjectItem(route_json, "distance")->valueint;
+            route.duration = string_to_seconds(cJSON_GetObjectItem(route_json, "duration")->valuestring);
+            route.type     = strcmp(cJSON_GetObjectItem(route_json, "type")->valuestring, "rail")==0 ? RAIL : AIR;
+
+            connection.route = &route;
+
+            station_connection_array[j] = connection;
+            j++;
         }
-        station_array[i].connections;
+        station_array[i].connections = station_connection_array;
         i++;
     }
 
     cJSON_Delete(json);
+
+    return station_array;
 }
 
 //This function might fail if the file is larger than 2GB. If we want

@@ -28,16 +28,16 @@ size_t connection_list_length(Connection* connection_list) {
  * Takes the time and splits them up in hours and minutes
  * Converts the hours and minutes to seconds and adds them into the seconds variable
  */
-int string_to_seconds(char* string) {
-int hours, minutes, seconds;
+int string_to_seconds(char *string) {
+    int hours, minutes, seconds;
 //Etellerandet skal ændres senere, det var bare for at teste
-char etellerandet[] = "15;16";
+    char etellerandet[] = "15;16";
 
-sscanf(etellerandet, "%d %*c %d", &hours, &minutes);
+    sscanf(etellerandet, "%d %*c %d", &hours, &minutes);
 
-seconds = (hours * 3600) + (minutes * 60);
+    seconds = (hours * 3600) + (minutes * 60);
 
-return seconds;
+    return seconds;
 }
 
 /**

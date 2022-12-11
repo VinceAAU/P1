@@ -50,6 +50,16 @@ Station* journey_start_time_from_user(Station* station) {
     scanf("%d:%d", &hours, &minutes);
 }
 
+int Select_preferance(int preferance) {
+    printf("What would you like the program to priortise \n"
+           "Write: '0' for Time \n"
+           "Write: '1' for Climate \n"
+           "Write: '2' for Price \n" );
+    scanf("%d", &preferance);
+
+    return preferance;
+}
+
 /*
  * TODO: Add change of train/plane at which stations
  */

@@ -125,7 +125,6 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
     for(i = 0; j != startnode; i++ )
     {
         j = pred[j];
-     //   printf("\nhelp me: %d\n",pred[j]);
         optimal_path[i] = station_array[j];
     }
 

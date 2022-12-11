@@ -50,6 +50,11 @@ Station* journey_start_time_from_user(Station* station) {
     scanf("%d:%d", &hours, &minutes);
 }
 
+/**
+ * Havde ingen ide om hvordan den tidligere kode fungerede, så lavede bare noget der burde virke.
+ * @param preferance
+ * @return
+ */
 int Select_preferance(int preferance) {
     printf("What would you like the program to priortise \n"
            "Write: '0' for Time \n"

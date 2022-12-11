@@ -30,10 +30,8 @@ size_t connection_list_length(Connection* connection_list) {
  */
 int string_to_seconds(char *string) {
     int hours, minutes, seconds;
-//Etellerandet skal ændres senere, det var bare for at teste
-    char etellerandet[] = "15;16";
 
-    sscanf(etellerandet, "%d %*c %d", &hours, &minutes);
+    sscanf(string, "%d:%d", &hours, &minutes);
 
     seconds = (hours * 3600) + (minutes * 60);
 

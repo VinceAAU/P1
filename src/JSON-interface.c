@@ -10,7 +10,7 @@
 char *read_entire_file(char *filename);
 ID convert_string_to_id(char* string_id);
 int string_to_seconds(char*);
-char *get_route_id_str(char*, char*);
+char *get_route_id_str(char*, char*, char* output);
 
 //This function DOES NOT check if the JSON is valid, and will break
 //down quietly (which is bad).
@@ -115,8 +115,8 @@ Station *retrieve_JSON_data(char *filename) {
 
             Route route;
 
-            //char* route_id_str = malloc((strlen(beginning_str) + 1 + strlen(destination_str) + 1) * sizeof(char));
-            char* route_id_str = get_route_id_str(beginning_str, destination_str);
+            char* route_id_str = malloc((strlen(beginning_str) + 1 + strlen(destination_str) + 1) * sizeof(char));
+            get_route_id_str(beginning_str, destination_str, route_id_str);
             route_json = cJSON_GetObjectItem(cJSON_GetObjectItem(json, "routes"),
                                              route_id_str);
             free(route_id_str);
@@ -174,4 +174,22 @@ ID convert_string_to_id(char* string_id){
         id += (ID) string_id[j]<<((j%sizeof(ID))*8); //I guess this is a way
     }
     return id;
+}
+
+char* get_route_id_str(char* a, char* b, char* output){
+    //char* output = malloc(strlen(a)+1+strlen(b)+1);
+    output[0] = '\0';
+
+    //Temporary solution
+    if(strcmp(a, b)<0){
+        strcat(output, a);
+        strcat(output, "-");
+        strcat(output, b);
+    } else {
+        strcat(output, b);
+        strcat(output, "-");
+        strcat(output, a);
+    }
+    return output;
+    //REMEMBER TO FREE THIS LATER
 }

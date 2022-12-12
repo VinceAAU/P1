@@ -163,7 +163,8 @@ char *read_entire_file(char *filename) {
 
     //Read the entire file into a string
     char *file_string = malloc(file_size + 1);
-    fgets(file_string, file_size, file);
+    //fgets(file_string, file_size, file);
+    fread(file_string, sizeof(char), file_size, file);
 
     return file_string;
 }

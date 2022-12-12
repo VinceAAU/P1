@@ -36,6 +36,15 @@
                 },
                 {
                     "destination": "D"
+                },
+                {
+                    "destination": "E"
+                },
+                {
+                    "destination": "M"
+                },
+                {
+                    "destination": "R"
                 }
             ]
         },
@@ -69,6 +78,15 @@
                 },
                 {
                     "destination": "I"
+                },
+                {
+                    "destination": "C"
+                },
+                {
+                    "destination": "M"
+                },
+                {
+                    "destination": "R"
                 }
             ]
         },
@@ -171,6 +189,15 @@
                 },
                 {
                     "destination": "V"
+                },
+                {
+                    "destination": "C"
+                },
+                {
+                    "destination": "E"
+                },
+                {
+                    "destination": "R"
                 }
             ]
         },
@@ -231,6 +258,15 @@
                 },
                 {
                     "destination": "U"
+                },
+                {
+                    "destination": "C"
+                },
+                {
+                    "destination": "E"
+                },
+                {
+                    "destination": "M"
                 }
             ]
         },
@@ -299,68 +335,7 @@
                     "destination": "T"
                 }
             ]
-        },
-        {
-            "name": "Airport C",
-            "ID": "Air C",
-            "connections": [
-                {
-                    "destination": "E"
-                },
-                {
-                    "destination": "M"
-                },
-                {
-                    "destination": "R"
-                }
-            ]
-        },
-        {
-            "name": "Airport E",
-            "ID": "Air E",
-            "connections": [
-                {
-                    "destination": "C"
-                },
-                {
-                    "destination": "M"
-                },
-                {
-                    "destination": "R"
-                }
-            ]
-        },
-        {
-            "name": "Airport M",
-            "ID": "Air M",
-            "connections": [
-                {
-                    "destination": "C"
-                },
-                {
-                    "destination": "E"
-                },
-                {
-                    "destination": "R"
-                }
-            ]
-        },
-        {
-            "name": "Airport R",
-            "ID": "Air R",
-            "connections": [
-                {
-                    "destination": "C"
-                },
-                {
-                    "destination": "E"
-                },
-                {
-                    "destination": "M"
-                }
-            ]
         }
-        
     ],
     "routes": {
         "A-C": {

@@ -551,6 +551,48 @@
             "distance": 40,
             "type": "rail",
             "duration": "blank"
+        },
+         "C-E": {
+            "lineID": 200,
+            "price": "",
+            "distance": 216,
+            "type": "air",
+            "duration": "blank"
+        },
+          "C-M": {
+            "lineID": 201,
+            "price": "",
+            "distance": 223,
+            "type": "air",
+            "duration": "blank"
+        },
+           "C-R": {
+            "lineID": 202,
+            "price": "",
+            "distance": 212,
+            "type": "air",
+            "duration": "blank"
+        },
+           "E-R": {
+            "lineID": 203,
+            "price": "",
+            "distance": 223,
+            "type": "air",
+            "duration": "blank"
+        },
+           "E-M": {
+            "lineID": 204,
+            "price": "",
+            "distance": 400,
+            "type": "air",
+            "duration": "blank"
+        },
+           "M-R": {
+            "lineID": 205,
+            "price": "",
+            "distance": 269,
+            "type": "air",
+            "duration": "blank"
         }
     }
 }

@@ -55,7 +55,7 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Stat
 
 
 
-Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_of_stations, Station* station_array)
+Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_of_stations, Station* station_array, int* route_length)
 {
     Station* indexed_array = index_station_array(number_of_stations, station_array);
 
@@ -100,7 +100,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
     }
 
     //print the path and distance of each node
-    for (i = 0; i < number_of_stations; i++) {
+  /* for (i = 0; i < number_of_stations; i++) {
         if (i != startnode) {
             printf("\nDistance of node %d = %d", i, distance[i]);
             printf("\nPath = %d", i);
@@ -111,7 +111,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
             } while (j != startnode);
         }
     }
-/*
+*/
     j = endnode;
     int counter = 0;
     do {
@@ -119,16 +119,19 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
         counter ++;
     } while (j != startnode);
 
-    Station* optimal_path = malloc(sizeof(Station)*counter);
+    Station* optimal_path = malloc(counter * sizeof(Station));
 
-    for(i = 0;j != startnode; i++ )
+    j = endnode;
+    for(i = 0; j != startnode; i++ )
     {
         j = pred[j];
         optimal_path[i] = station_array[j];
     }
 
+    *route_length = counter;
+
     return optimal_path;
-*/
+
 }
 
 Station* debugging_data(int size)
@@ -162,7 +165,7 @@ Station* debugging_data(int size)
 
     for(int j = 0; j < 3; j++)
     {
-     //   printf("%d\n", stations[0].connections[j].station->id);
+      //  printf("%d\n", stations[0].connections[j].station->id);
     }
 
     return stations;
@@ -179,11 +182,11 @@ void print_matrix(int size, int*matrix)
     }
 }
 
-void debug_print_stations(int number_of_stations, Station* statio_array)
+void debug_print_stations(int number_of_stations, Station* station_array)
 {
     for(int i = 0; i < number_of_stations; i++)
     {
-        printf("Station: %d", statio_array[i].id);
+        printf("Station: %d\n", station_array[i].id);
     }
 
 }

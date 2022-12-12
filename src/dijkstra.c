@@ -99,19 +99,8 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
         count++;
     }
 
-    //print the path and distance of each node
-  /* for (i = 0; i < number_of_stations; i++) {
-        if (i != startnode) {
-            printf("\nDistance of node %d = %d", i, distance[i]);
-            printf("\nPath = %d", i);
-            j = i;
-            do {
-                j = pred[j];
-                printf("<-%d", j);
-            } while (j != startnode);
-        }
-    }
-*/
+    // must get the number of stations in result before finding the station, to allocate the right amount of space
+    // leads to slightly repetitive code, but im not sure if there is a way to get around it
     j = endnode;
     int counter = 0;
     do {
@@ -129,6 +118,8 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
     }
 
     *route_length = counter;
+
+    printf("distance: %d\n", distance[endnode]);
 
     return optimal_path;
 

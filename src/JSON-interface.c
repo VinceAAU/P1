@@ -10,7 +10,7 @@
 char *read_entire_file(char *filename);
 ID convert_string_to_id(char* string_id);
 int string_to_seconds(char*);
-char *get_route_id_str(char*, char*);
+char *get_route_id_str(char*, char*, char* output);
 
 //This function DOES NOT check if the JSON is valid, and will break
 //down quietly (which is bad).
@@ -111,23 +111,27 @@ Station *retrieve_JSON_data(char *filename) {
             connection.timetable = timetable;
             connection.timetable_length = cJSON_GetArraySize(timetable_json);
 
-            char* beginning_str = cJSON_GetObjectItem(station_json, "ID")->valuestring;
+            char *beginning_str = cJSON_GetObjectItem(station_json, "ID")->valuestring;
 
             Route route;
 
-            //char* route_id_str = malloc((strlen(beginning_str) + 1 + strlen(destination_str) + 1) * sizeof(char));
-            char* route_id_str = get_route_id_str(beginning_str, destination_str);
+            char *route_id_str = malloc((strlen(beginning_str) + 1 + strlen(destination_str) + 1) * sizeof(char));
+            get_route_id_str(beginning_str, destination_str, route_id_str);
             route_json = cJSON_GetObjectItem(cJSON_GetObjectItem(json, "routes"),
                                              route_id_str);
+
+            if (route_json == NULL) {
+                fprintf(stderr, "Route %s was not found!\n", route_id_str);
+            }
             free(route_id_str);
 
-            struct Station* station_a = get_station_by_id(station_array, convert_string_to_id(beginning_str));
-            struct Station* station_b = get_station_by_id(station_array, convert_string_to_id(destination_str));
+            struct Station *station_a = get_station_by_id(station_array, convert_string_to_id(beginning_str));
+            struct Station *station_b = get_station_by_id(station_array, convert_string_to_id(destination_str));
 
-            route.node1    = (station_a->id) > (station_b->id) ? station_a : station_b;
-            route.node2    = (station_a->id) < (station_b->id) ? station_a : station_b;
-            route.line     = cJSON_GetObjectItem(route_json, "lineID"  )->valueint;
-            route.price    = cJSON_GetObjectItem(route_json, "price"   )->valuedouble;
+            route.node1 = (station_a->id) > (station_b->id) ? station_a : station_b;
+            route.node2 = (station_a->id) < (station_b->id) ? station_a : station_b;
+            route.line = cJSON_GetObjectItem(route_json, "lineID")->valueint;
+            route.price = cJSON_GetObjectItem(route_json, "price")->valuedouble;
             route.distance = cJSON_GetObjectItem(route_json, "distance")->valueint;
             route.duration = string_to_seconds(cJSON_GetObjectItem(route_json, "duration")->valuestring);
             route.type     = strcmp(cJSON_GetObjectItem(route_json, "type")->valuestring, "rail")==0 ? RAIL : AIR;
@@ -163,7 +167,8 @@ char *read_entire_file(char *filename) {
 
     //Read the entire file into a string
     char *file_string = malloc(file_size + 1);
-    fgets(file_string, file_size, file);
+    //fgets(file_string, file_size, file);
+    fread(file_string, sizeof(char), file_size, file);
 
     return file_string;
 }
@@ -174,4 +179,22 @@ ID convert_string_to_id(char* string_id){
         id += (ID) string_id[j]<<((j%sizeof(ID))*8); //I guess this is a way
     }
     return id;
+}
+
+char* get_route_id_str(char* a, char* b, char* output){
+    //char* output = malloc(strlen(a)+1+strlen(b)+1);
+    output[0] = '\0';
+
+    //Temporary solution
+    if(strcmp(a, b)<0){
+        strcat(output, a);
+        strcat(output, "-");
+        strcat(output, b);
+    } else {
+        strcat(output, b);
+        strcat(output, "-");
+        strcat(output, a);
+    }
+    return output;
+    //REMEMBER TO FREE THIS LATER
 }

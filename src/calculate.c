@@ -2,6 +2,7 @@
 #include "station.c"
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 #define AIR_CO2_PER_KM (float)3.14
 #define RAIL_CO2_PER_KM (float)0.14
@@ -30,10 +31,8 @@ size_t connection_list_length(Connection* connection_list) {
  */
 int string_to_seconds(char *string) {
     int hours, minutes, seconds;
-//Etellerandet skal ændres senere, det var bare for at teste
-    char etellerandet[] = "15;16";
 
-    sscanf(etellerandet, "%d %*c %d", &hours, &minutes);
+    sscanf(string, "%d:%d", &hours, &minutes);
 
     seconds = (hours * 3600) + (minutes * 60);
 
@@ -54,6 +53,13 @@ float calculate_price(Station* stations) {
         for (size_t j = 0; j < connections_length; ++j) {
             if (stations[i].connections[j].station->id == stations[i+1].id) {
                 sum_of_prices += stations[i].connections[j].route->price;
+                if (stations[i].connections[j].route->type == RAIL && i != 0) {
+                    if (stations[i-1].connections[j].route->type != RAIL) {
+                        sum_of_prices += (float) 2.5;
+                    }
+                } else if (stations[i].connections[j].route->type == RAIL && i == 0) {
+                    sum_of_prices += (float) 2.5;
+                }
             }
         }
     }

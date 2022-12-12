@@ -19,8 +19,9 @@ Station* debugging_data()
         connections[i].station = &stations[i];
         connections[i].station->name = "Brr";
         connections[i].station->id = i+3;
-        connections[i].route->price = 5;
-        connections[i].route->distance = 8;
+        connections[i].route->price = 10;
+        connections[i].route->distance = 10;
+        connections[i].route->type = RAIL;
     } connections[2] = poo;
 
     for(int i = 0; i < 5; i++)

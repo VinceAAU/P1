@@ -52,17 +52,17 @@ Station* journey_start_time_from_user(Station* station) {
 
 /**
  * Havde ingen ide om hvordan den tidligere kode fungerede, så lavede bare noget der burde virke.
- * @param preferance
+ * @param preference
  * @return
  */
-int Select_preferance(int preferance) {
-    printf("What would you like the program to priortise \n"
+int Select_preference(int preference) {
+    printf("What would you like the program to prioritise \n"
            "Write: '0' for Time \n"
            "Write: '1' for Climate \n"
            "Write: '2' for Price \n" );
-    scanf("%d", &preferance);
+    scanf("%d", &preference);
 
-    return preferance;
+    return preference;
 }
 
 /*
@@ -118,11 +118,11 @@ void output_result(int train_sum_of_time, float train_co2_emitted, float train_s
 
 
     if(best_transport_mode == 0){
-        printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated kost: %lf kr.\n", train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
-        printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated kost: %lf kr.\n", plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
+        printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
+        printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
     }else{
-        printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated kost: %lf kr.\n", plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
-        printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated kost: %lf kr.\n", train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
+        printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
+        printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
     }
 
 }

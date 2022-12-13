@@ -7,6 +7,16 @@
 
 #define INFINITY 999999 // must be higher than all route durations combined.
 
+/* TODO: Account for route changes by checking timetables
+ * if a route change is required, check the timetable and add
+ * the time difference to the cost matrix
+ *
+ * TODO: Include airplane routes
+ *make a seperate cost matrix, which includes planes
+ *
+ *
+ */
+
 Station * index_station_array(int number_of_stations, Station* station_array)
 {
     Station *array = (Station *) malloc(number_of_stations * sizeof(Station));
@@ -20,7 +30,21 @@ Station * index_station_array(int number_of_stations, Station* station_array)
     return array;
 }
 
-int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Station* station_array ) {
+size_t get_route_list_length(Route* route_list)
+{
+    if(route_list == NULL){
+        return 0;
+    }
+
+    size_t i = 0;
+    while(route_list[i].node1 != NULL){
+        i++;
+    }
+
+    return i;
+}
+
+int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Station* station_array, int allow_planes_bool ) {
     int (*adjacency_matrix)[number_of_stations] = malloc(sizeof(int[number_of_stations][number_of_stations]));
 
     // fill matrix with zeros, so stations are disconnected by default.
@@ -36,42 +60,52 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Stat
     for (int row = 0; row < number_of_stations; row++) {
 
         int connections = 3; // TODO: replace with connection_list_length from station.h
-       // printf("There are %d connections for station %d\n",connections, row);
 
-        for(int j = 0; j < connections; j++)
-        {
-          //  printf("%d\n", array[row].connections[j].station->id);
-        }
+            for (int i = 0; i < connections; i++) {
+                Connection current_connection = indexed_array[row].connections[i];
+                adjacency_matrix[row][current_connection.station->id] = indexed_array[row].connections[i].route[0].duration;
+                // If JSON checker doesn't order the route, the adjacency matrix function will have to.
+            }
+            if(allow_planes_bool)
+            {
+                for (int i = 0; i < connections; i++) {
+                    Connection current_connection = indexed_array[row].connections[i];
+                    if(get_route_list_length(current_connection.route) > 1)
+                    {
+                        adjacency_matrix[row][current_connection.station->id] = indexed_array[row].connections[i].route[1].duration;
+                    }
+                    // If JSON checker doesn't order the route, the adjacency matrix function will have to.
+                }
+            }
 
-        for (int i = 0; i < connections; i++) {
-            Connection current_connection = indexed_array[row].connections[i];
-            adjacency_matrix[row][current_connection.station->id] = indexed_array[row].connections[i].route[0].duration;
-            // If JSON checker doesn't order the route, the adjacency matrix function will have to.
-        }
     }
 
     return *adjacency_matrix;
 }
 
+int check_table(int current_time, Station station)
+{
 
+}
 
-Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_of_stations, Station* station_array, int* route_length)
+Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_of_stations, Station* station_array, int* route_length, int current_time)
 {
     Station* indexed_array = index_station_array(number_of_stations, station_array);
-
     int cost[number_of_stations][number_of_stations], distance[number_of_stations], pred[number_of_stations];
     int visited[number_of_stations], count, mindistance, nextnode, i, j;
-    //pred[] stores the predecessor of each node
-    //count gives the number of nodes seen so far
-    //create the cost matrix
+
     // *(G + i * number_of_stations + j) is the same as G[i][j]
+
+    /* TODO:
+     * put this part in create adjacency matrix instead
+     * it is currently here for debugging purposes */
     for (i = 0; i < number_of_stations; i++)
         for (j = 0; j < number_of_stations; j++)
             if (*(G + i * number_of_stations + j) == 0)
                 cost[i][j] = INFINITY;
             else
                 cost[i][j] = *(G + i * number_of_stations + j);
-    //initialize pred[],distance[] and visited[]
+
     for (i = 0; i < number_of_stations; i++) {
         distance[i] = cost[startnode][i];
         pred[i] = startnode;
@@ -82,6 +116,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
     count = 1;
     while (count < number_of_stations - 1) {
         mindistance = INFINITY;
+
         //nextnode gives the node at minimum distance
         for (i = 0; i < number_of_stations; i++)
             if (distance[i] < mindistance && !visited[i]) {
@@ -120,6 +155,10 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
     *route_length = counter;
 
     printf("distance: %d\n", distance[endnode]);
+    if(distance[endnode] == INFINITY)
+    {
+        return NULL; // returns null if there is no possible route between the two nodes
+    }
 
     return optimal_path;
 

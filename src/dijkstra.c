@@ -83,6 +83,19 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Stat
     return *adjacency_matrix;
 }
 
+void reverse(Station arr[], int n)
+{
+    Station aux[n];
+
+    for (int i = 0; i < n; i++) {
+        aux[n - 1 - i] = arr[i];
+    }
+
+    for (int i = 0; i < n; i++) {
+        arr[i] = aux[i];
+    }
+}
+
 int check_table(int current_time, Station station)
 {
 
@@ -137,7 +150,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
     // must get the number of stations in result before finding the station, to allocate the right amount of space
     // leads to slightly repetitive code, but im not sure if there is a way to get around it
     j = endnode;
-    int counter = 0;
+    int counter = 1;
     do {
         j = pred[j];
         counter ++;
@@ -146,11 +159,14 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
     Station* optimal_path = malloc(counter * sizeof(Station));
 
     j = endnode;
+    optimal_path[0] = station_array[endnode];
     for(i = 0; j != startnode; i++ )
     {
         j = pred[j];
-        optimal_path[i] = station_array[j];
+        optimal_path[i+1] = station_array[j];
     }
+
+
 
     *route_length = counter;
 
@@ -159,6 +175,8 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
     {
         return NULL; // returns null if there is no possible route between the two nodes
     }
+
+    reverse(optimal_path,counter);
 
     return optimal_path;
 

@@ -11,7 +11,7 @@ int main(void) {
     // Declaring and initialising variables and extracting JSON data.
     int start_time = 0, preference = -1, train_sum_time = -1, plane_sum_time = -1;
     float train_co2_emitted = 0, plane_co2_emitted = 0, train_sum_of_price = 0, plane_sum_of_price = 0;
-    Station* stations = retrieve_JSON_data("C:\\Users\\Daniel Boedker\\CLionProjects\\P1\\example.json");
+    Station *stations = retrieve_JSON_data("/home/vince/Documents/aau/S1/P1/example.json");
 
     // Output list of all stations for the user to read.
     size_t number_of_stations = station_list_length(stations);

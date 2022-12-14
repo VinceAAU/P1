@@ -1,3 +1,4 @@
+#include <string.h>
 #include "station.h"
 
 // The last element in a station array must be filled with zeros.
@@ -35,11 +36,21 @@ size_t connection_list_length(Connection* connection_list) {
 
 // Station list is not sorted, so we use a linear search, making this
 // function quite slow.
-Station* get_station_by_id(Station* station_list, ID id){
+Station *get_station_by_id(Station *station_list, ID id) {
     for (int i = 0; i < station_list_length(station_list); i++) {
-        if(station_list[i].id==id){
-            return station_list+i;
+        if (station_list[i].id == id) {
+            return station_list + i;
         }
     }
     return NULL; //If no station is found
+}
+
+Station *get_station_by_name(Station *station_list, char *name) {
+    //If two stations have the same name, this will just return the first
+    for (int i = 0; i < station_list_length(station_list); i++) {
+        if (strcmp(station_list[i].name, name) == 0) {
+            return &station_list[i];
+        }
+    }
+    return NULL;
 }

@@ -1,5 +1,5 @@
 # P1
-This is our P1 project. It is currently empty, but that is not something that you need to worry about. Worrying is our job.
+This is our P1 project. It is not empty anymore.
 
 This repository is not public yet, so you probably don't have any questions. If, by any chance, GitHub has a security breach that allows people to see this repository, and one of those people are interested, we can be contacted at cs-22-sw-1-p1-02@student.aau.dk, or at our individual emails:
 

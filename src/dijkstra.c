@@ -218,13 +218,4 @@ void print_matrix(int size, int*matrix)
     }
 }
 
-void debug_print_stations(int number_of_stations, Station* station_array)
-{
-    for(int i = 0; i < number_of_stations; i++)
-    {
-        printf("Station: %d\n", station_array[i].id);
-    }
-
-}
-
 

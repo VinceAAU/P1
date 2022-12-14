@@ -1,43 +1,30 @@
 #include "station.h"
 #include "calculate.h"
+#include "UI.h"
+#include "JSON-interface.h"
+#include "dijkstra.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-Station* debugging_data()
-{
-    Route *route = malloc(sizeof(Route));
-    Station *stations =  malloc(5 * sizeof(Station));
-    Connection *connections = malloc(3 * sizeof(Connection));
-
-    Station foo = (Station){0};
-    Connection poo = (Connection) {0};
-
-    for(int i = 0; i < 2; i++)
-    {
-        route->duration = i+1;
-        connections[i].route = route;
-        connections[i].station = &stations[i];
-        connections[i].station->name = "Brr";
-        connections[i].station->id = i+3;
-        connections[i].route->price = 5;
-        connections[i].route->distance = 8;
-    } connections[2] = poo;
-
-    for(int i = 0; i < 5; i++)
-    {
-        stations[i].connections = connections;
-        stations[i].name = "Siooo";
-    }  stations[5] = foo;
-
-    for(int i = 0; i < 5; i++)
-    {
-        stations[i].id = i;
-    }
-
-    return stations;
-}
 
 int main(void) {
-    printf("%f \n", calculate_price(debugging_data()));
-    printf("%f \n", calculate_co2(debugging_data()));
+    int start_time = 0, preference = -1;
+    Station* stations = retrieve_JSON_data("data.json");
+
+    size_t number_of_stations = station_list_length(stations);
+    printf("These are all the stations you can choose from: \n");
+    print_stations(number_of_stations, stations);
+
+    start_station_from_user(stations);
+    end_station_from_user(stations);
+    start_time = journey_start_time_from_user();
+    preference = select_preference();
+
+
+    Station* optimal_train_route = run_dijkstra(stations);
+    Station* optimal_plane_route = run_dijkstra(stations);
+
+
+
+
 }

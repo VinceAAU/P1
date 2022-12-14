@@ -6,12 +6,16 @@
             "connections": [
                 {
                     "destination": "J"
+                    "timetables"{"07:10",}
                 },
                 {
                     "destination": "K"
+                    "timetables"{"06:30",}
+                    
                 },
                 {
                     "destination": "C"
+                    "timetables"{"05:30",}
                 }
             ]
         },
@@ -21,6 +25,7 @@
             "connections": [
                 {
                     "destination": "C"
+                    "timetables"{"05:00",}
                 }
             ]
         },
@@ -30,21 +35,15 @@
             "connections": [
                 {
                     "destination": "A"
+                    "timetables"{"07:00",}
                 },
                 {
                     "destination": "B"
+                    "timetables"{"06:55",}
                 },
                 {
                     "destination": "D"
-                },
-                {
-                    "destination": "E"
-                },
-                {
-                    "destination": "M"
-                },
-                {
-                    "destination": "R"
+                    "timetables"{"05:45",}
                 }
             ]
         },
@@ -54,12 +53,15 @@
             "connections": [
                 {
                     "destination": "C"
+                    "timetables"{"05:00",}
                 },
                 {
                     "destination": "E"
+                    "timetables"{"07:25",}
                 },
                 {
                     "destination": "U"
+                    "timetables"{"05:00",}
                 },
                 {
                     "destination": "W"
@@ -73,22 +75,14 @@
             "connections": [
                 {
                     "destination": "D"
-                    "timetables"{06:45}
+                    "timetables"{"06:45"}
                 },
                 {
                     "destination": "F"
                 },
                 {
                     "destination": "I"
-                },
-                {
-                    "destination": "C"
-                },
-                {
-                    "destination": "M"
-                },
-                {
-                    "destination": "R"
+                    "timetables"{"8:40",}
                 }
             ]
         },
@@ -128,10 +122,11 @@
             "connections": [
                 {
                     "destination": "E"
-                    "timetables"{"05:30",}
+                    "timetables"{"05:30"}
                 },
                 {
                     "destination": "G"
+                    "timetables"{"09:55",}
                 },
                 {
                     "destination": "H"
@@ -144,19 +139,19 @@
             "connections": [
                 {
                     "destination": "A"
-                    "timetables"{"09:10",}
+                    "timetables"{"05:10","06:10","07:10","08:10","09:10","10:10",}
                 },
                 {
                     "destination": "M"
-                    "timetables"{"09:10",}
+                    "timetables"{"05:00","10:10",}
                 },
                 {
                     "destination": "T"
-                    "timetables"{"09:10",}
+                    "timetables"{"10:10",}
                 },
                 {
                     "destination": "Q"
-                    "timetables"{"09:10",}
+                    "timetables"{"10:10",}
                 },
                 {
                     "destination": "W"
@@ -170,9 +165,11 @@
             "connections": [
                 {
                     "destination": "A"
+                    "timetables"{"06:00",}
                 },
                 {
                     "destination": "L"
+                    "timetables"{"07:15",}
                 }
             ]
         },
@@ -182,6 +179,7 @@
             "connections": [
                 {
                     "destination": "K"
+                    "timetables"{"05:15",}
                 }
             ]
         },
@@ -191,24 +189,19 @@
             "connections": [
                 {
                     "destination": "J"
+                    "timetables"{"6:45",}
                 },
                 {
                     "destination": "N"
+                    "timetables"{"6:45",}
                 },
                 {
                     "destination": "O"
+                    "timetables"{"06:40"}
                 },
                 {
                     "destination": "V"
-                },
-                {
-                    "destination": "C"
-                },
-                {
-                    "destination": "E"
-                },
-                {
-                    "destination": "R"
+                    "timetables"{"6:45",}
                 }
             ]
         },
@@ -227,6 +220,7 @@
             "connections": [
                 {
                     "destination": "M"
+                    "timetables"{"05:00",}
                 }
             ]
         },
@@ -236,9 +230,11 @@
             "connections": [
                 {
                     "destination": "Q"
+                    "timetables"{"05:00",}
                 },
                 {
                     "destination": "V"
+                    "timetables"{"05:40",}
                 }
             ]
         },
@@ -248,12 +244,15 @@
             "connections": [
                 {
                     "destination": "J"
+                    "timetables"{"05:00",}
                 },
                 {
                     "destination": "P"
+                    "timetables"{"07:35",}
                 },
                 {
                     "destination": "R"
+                    "timetables"{"05:55",}
                 }
             ]
         },
@@ -263,21 +262,15 @@
             "connections": [
                 {
                     "destination": "Q"
+                    "timetables"{"06:40",}
                 },
                 {
                     "destination": "T"
+                    "timetables"{"05:00",}
                 },
                 {
                     "destination": "U"
-                },
-                {
-                    "destination": "C"
-                },
-                {
-                    "destination": "E"
-                },
-                {
-                    "destination": "M"
+                    "timetables"{"06:55",}
                 }
             ]
         },
@@ -287,6 +280,8 @@
             "connections": [
                 {
                     "destination": "U"
+                    "timetables"{"05:10",}
+                    
                 }
             ]
         },
@@ -296,9 +291,11 @@
             "connections": [
                 {
                     "destination": "J"
+                    "timetables"{"06:15",}
                 },
                 {
                     "destination": "R"
+                    "timetables"{"06:15",}
                 },
                 {
                     "destination": "W"
@@ -311,12 +308,15 @@
             "connections": [
                 {
                     "destination": "D"
+                    "timetables"{"07:50",}
                 },
                 {
                     "destination": "R"
+                    "timetables"{"05:45",}
                 },
                 {
                     "destination": "S"
+                    "timetables"{"05:50","06:50"}
                 }
             ]
         },
@@ -326,6 +326,7 @@
             "connections": [
                 {
                     "destination": "M"
+                    "timetables"{"05:30","06:30",}
                 },
                 {
                     "destination": "P"
@@ -338,6 +339,7 @@
             "connections": [
                 {
                     "destination": "D"
+                    "timetables"{"6:25",}
                 },
                 {
                     "destination": "J"
@@ -345,6 +347,7 @@
                 },
                 {
                     "destination": "T"
+                    "timetables"{"05:45",}
                 }
             ]
         }

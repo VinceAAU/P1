@@ -68,8 +68,8 @@ int Select_preference(int preference) {
 /*
  * TODO: Add change of train/plane at which stations
  */
-void output_result(int train_sum_of_time, float train_co2_emitted, float train_sum_of_price,
-                   int plane_sum_of_time, float plane_co2_emitted, float plane_sum_of_price,
+void output_result(Station* train_stations, int train_sum_of_time, float train_co2_emitted, float train_sum_of_price,
+                   Station* plane_stations, int plane_sum_of_time, float plane_co2_emitted, float plane_sum_of_price,
                    int preference){
     int best_transport_mode = -1, train_hours = 0, train_minutes = 0, plane_hours = 0, plane_minutes = 0;
 
@@ -115,7 +115,17 @@ void output_result(int train_sum_of_time, float train_co2_emitted, float train_s
     plane_minutes = plane_sum_of_time/60;
     plane_hours = plane_minutes/60;
     plane_minutes = plane_minutes%60;
+/*
+    for(int i = 0;i < 1000 ; i++){
+        if (i == 0) {
 
+        }else if(stations[i] == NULL){
+            i = 10000;
+        }else if (stations[i-1].connections[j].route->line != stations[i].connections[j].route->line) {
+
+        }
+    }
+*/
 
     if(best_transport_mode == 0){
         printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", train_hours, train_minutes, train_co2_emitted, train_sum_of_price);

@@ -6,7 +6,7 @@ Station* start_station_from_user (Station* station);
 
 Station* end_station_from_user (Station* station);
 
-Station* journey_start_time_from_user(Station* station);
+int journey_start_time_from_user();
 
 int validate_input(int user_input_station, Station station);
 

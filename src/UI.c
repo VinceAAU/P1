@@ -42,12 +42,14 @@ Station* end_station_from_user (Station* station){
     return get_station_by_id(station, user_input_end_station);
 }
 
-Station* journey_start_time_from_user(Station* station) {
+int journey_start_time_from_user() {
     int hours = 0, minutes = 0;
 
     printf("At what time would you like to start your journey? \n"
            "(Please write in HH:MM format \n)");
     scanf("%d:%d", &hours, &minutes);
+
+    return hours * 24 + minutes * 60;
 }
 
 /**

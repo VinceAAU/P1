@@ -15,6 +15,23 @@ size_t station_list_length(Station* station_list){
 
     return i;
 }
+/**
+ * Find the number of connections a station has.
+ * @param connection_list The array of connections you wish to count.
+ * @return Counting the length of the array and returning the length.
+ */
+size_t connection_list_length(Connection* connection_list) {
+    if(connection_list == NULL){
+        return 0;
+    }
+
+    size_t i = 0;
+    while(connection_list[i].station != NULL){
+        i++;
+    }
+
+    return i;
+}
 
 // Station list is not sorted, so we use a linear search, making this
 // function quite slow.

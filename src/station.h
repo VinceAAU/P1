@@ -42,3 +42,5 @@ typedef struct Station {
 size_t station_list_length(Station*);
 
 Station* get_station_by_id(Station* station_list, ID id);
+
+size_t connection_list_length(Connection* connection_list);

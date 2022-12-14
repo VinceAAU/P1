@@ -30,20 +30,6 @@ Station * index_station_array(int number_of_stations, Station* station_array)
     return array;
 }
 
-size_t get_route_list_length(Route* route_list)
-{
-    if(route_list == NULL){
-        return 0;
-    }
-
-    size_t i = 0;
-    while(route_list[i].node1 != NULL){
-        i++;
-    }
-
-    return i;
-}
-
 int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Station* station_array, int allow_planes_bool ) {
     int (*adjacency_matrix)[number_of_stations] = malloc(sizeof(int[number_of_stations][number_of_stations]));
 
@@ -59,18 +45,20 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Stat
 
     for (int row = 0; row < number_of_stations; row++) {
 
-        int connections = 3; // TODO: replace with connection_list_length from station.h
+        size_t connections = connection_list_length(indexed_array[row].connections); // TODO: replace with connection_list_length from station.h
 
             for (int i = 0; i < connections; i++) {
                 Connection current_connection = indexed_array[row].connections[i];
-                adjacency_matrix[row][current_connection.station->id] = indexed_array[row].connections[i].route[0].duration;
+                if(current_connection.route->type == RAIL) {
+                    adjacency_matrix[row][current_connection.station->id] = indexed_array[row].connections[i].route->duration;
+                }
                 // If JSON checker doesn't order the route, the adjacency matrix function will have to.
             }
             if(allow_planes_bool)
             {
                 for (int i = 0; i < connections; i++) {
                     Connection current_connection = indexed_array[row].connections[i];
-                    if(get_route_list_length(current_connection.route) > 1)
+                    if(current_connection.route->type == AIR)
                     {
                         adjacency_matrix[row][current_connection.station->id] = indexed_array[row].connections[i].route[1].duration;
                     }

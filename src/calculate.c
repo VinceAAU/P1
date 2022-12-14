@@ -6,23 +6,6 @@
 #define AIR_CO2_PER_KM (float)88.8
 #define RAIL_CO2_PER_KM (float)21.5
 
-/**
- * Find the number of connections a station has.
- * @param connection_list The array of connections you wish to count.
- * @return Counting the length of the array and returning the length.
- */
-size_t connection_list_length(Connection* connection_list) {
-    if(connection_list == NULL){
-        return 0;
-    }
-
-    size_t i = 0;
-    while(connection_list[i].station != NULL){
-        i++;
-    }
-
-    return i;
-}
 
 /**
  * Takes the time and splits them up in hours and minutes

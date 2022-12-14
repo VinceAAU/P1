@@ -19,14 +19,14 @@ int main(void) {
     print_stations(number_of_stations, stations);
 
     // Getting input from the user.
-    start_station_from_user(stations);
-    end_station_from_user(stations);
+    Station* start_station = start_station_from_user(stations);
+    Station* end_station = end_station_from_user(stations);
     start_time = journey_start_time_from_user();
     preference = select_preference();
 
     // Finding both the optimal train and plane route.
-    Station* optimal_train_route = run_dijkstras(number_of_stations, stations, RAIL, start_time, &train_sum_time);
-    Station* optimal_plane_route = run_dijkstras(number_of_stations, stations, AIR, start_time, &plane_sum_time);
+    Station* optimal_train_route = run_dijkstras(number_of_stations, stations, RAIL, start_time, &train_sum_time, start_station->id, end_station->id);
+    Station* optimal_plane_route = run_dijkstras(number_of_stations, stations, AIR, start_time, &plane_sum_time, start_station->id,end_station->id);
 
     // Calculating the price and CO2 emitted for the train route.
     train_sum_of_price = calculate_price(optimal_train_route);

@@ -1,5 +1,5 @@
 #include "calculate.h"
-#include "station.c"
+#include "station.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -36,13 +36,18 @@ float calculate_price(Station* stations) {
     for (size_t i = 0; i < stations_length; ++i) {
         size_t connections_length = connection_list_length(stations[i].connections);
         for (size_t j = 0; j < connections_length; ++j) {
+            /* Finds the connection which leads to the next station in the array. */
             if (stations[i].connections[j].station->id == stations[i+1].id) {
                 sum_of_prices += stations[i].connections[j].route->price;
+                /* Checks if the travel is by train and if it is the first train station in the journey.
+                   If so, it adds 2.5 euros (starting price for a train journey) to the price sum. */
                 if (stations[i].connections[j].route->type == RAIL && i != 0) {
                     if (stations[i-1].connections[j].route->type != RAIL) {
                         sum_of_prices += (float) 2.5;
                     }
-                } else if (stations[i].connections[j].route->type == RAIL && i == 0) {
+                }
+                /* Like the above check, however, this only checks the very first station. */
+                else if (stations[i].connections[j].route->type == RAIL && i == 0) {
                     sum_of_prices += (float) 2.5;
                 }
             }
@@ -65,7 +70,10 @@ float calculate_co2(Station* stations){
     for (size_t i = 0; i < stations_length; ++i) {
         size_t connections_length = connection_list_length(stations[i].connections);
         for (size_t j = 0; j < connections_length; ++j) {
+            /* Finds the connection which leads to the next station in the array. */
             if (stations[i].connections[j].station->id == stations[i+1].id) {
+                /* Checks whether the found connection is a train or a plane route,
+                   then multiplies the route distance with a statically defined CO2 per km.  */
                 switch(stations[i].connections[j].route->type) {
                     case AIR:
                         result += (float) (stations[i].connections[j].route->distance) * AIR_CO2_PER_KM;
@@ -74,6 +82,7 @@ float calculate_co2(Station* stations){
                         result += (float) (stations[i].connections[j].route->distance) * RAIL_CO2_PER_KM;
                         break;
                     default:
+                        /* In case of unexpected travel type, it terminates the program with an error message. */
                         printf("TravelType is neither AIR nor RAIL.");
                         exit(EXIT_FAILURE);
                 }

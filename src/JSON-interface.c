@@ -4,12 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "calculate.h"
 
 #define MAXIMUM_STATION_ID_LENGTH 1000
 
 char *read_entire_file(char *filename);
 ID convert_string_to_id(char* string_id);
-int string_to_seconds(char*);
 char *get_route_id_str(char*, char*, char* output);
 
 //This function DOES NOT check if the JSON is valid, and will break

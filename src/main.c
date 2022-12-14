@@ -11,7 +11,7 @@ int main(void) {
     // Declaring and initialising variables and extracting JSON data.
     int start_time = 0, preference = -1, train_sum_time = -1, plane_sum_time = -1;
     float train_co2_emitted = 0, plane_co2_emitted = 0, train_sum_of_price = 0, plane_sum_of_price = 0;
-    Station* stations = retrieve_JSON_data("data.json");
+    Station* stations = retrieve_JSON_data("C:\\Users\\Daniel Boedker\\CLionProjects\\P1\\example.json");
 
     // Output list of all stations for the user to read.
     size_t number_of_stations = station_list_length(stations);
@@ -23,6 +23,9 @@ int main(void) {
     Station* end_station = end_station_from_user(stations);
     start_time = journey_start_time_from_user();
     preference = select_preference();
+
+    printf("First station has %d duration\n",stations[0].connections[0].route->duration);
+
 
     // Finding both the optimal train and plane route.
     Station* optimal_train_route = run_dijkstras(number_of_stations, stations, RAIL, start_time, &train_sum_time, start_station->id, end_station->id);

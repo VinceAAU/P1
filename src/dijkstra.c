@@ -17,7 +17,7 @@
  *
  */
 
-Station * index_station_array(int number_of_stations, Station* station_array)
+Station * index_station_array(size_t number_of_stations, Station* station_array)
 {
     Station *array = (Station *) malloc(number_of_stations * sizeof(Station));
 
@@ -30,7 +30,7 @@ Station * index_station_array(int number_of_stations, Station* station_array)
     return array;
 }
 
-int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Station* station_array, int allow_planes_bool ) {
+int* create_adjacency_matrix_for_dijkstra_algorithm(size_t number_of_stations, Station* station_array, int allow_planes_bool ) {
     int (*adjacency_matrix)[number_of_stations] = malloc(sizeof(int[number_of_stations][number_of_stations]));
 
     // fill matrix with zeros, so stations are disconnected by default.
@@ -84,12 +84,7 @@ void reverse_array(Station array[], int length)
     }
 }
 
-int check_table(int current_time, Station station)
-{
-
-}
-
-Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_of_stations, Station* station_array, int* route_length, int current_time)
+Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t number_of_stations, Station* station_array, int current_time, int *output_time)
 {
     Station* indexed_array = index_station_array(number_of_stations, station_array);
     int cost[number_of_stations][number_of_stations], distance[number_of_stations], predecessor[number_of_stations];
@@ -154,11 +149,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
         optimal_path[i+1] = station_array[j];
     }
 
-
-
-    *route_length = counter;
-
-    printf("distance: %d\n", distance[endnode]);
+    *output_time = distance[endnode];
     if(distance[endnode] == INFINITY)
     {
         return NULL; // returns null if there is no possible route between the two nodes
@@ -218,4 +209,16 @@ void print_matrix(int size, int*matrix)
     }
 }
 
+Station* run_dijkstras(size_t total_number_of_stations, Station* all_stations, TravelType travel_type, int current_time, int* output_time, ID start_node, ID end_node)
+{
+    int * matrix;
+    if(travel_type == AIR) {
+        matrix = create_adjacency_matrix_for_dijkstra_algorithm(total_number_of_stations, all_stations, 1);
+    }
+    else {
+        matrix = create_adjacency_matrix_for_dijkstra_algorithm(total_number_of_stations, all_stations, 0);
+    }
+
+    return calculate_optimal_route(matrix, start_node, end_node, total_number_of_stations, all_stations, current_time, output_time);
+}
 

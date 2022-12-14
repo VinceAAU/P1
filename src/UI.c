@@ -49,7 +49,7 @@ int journey_start_time_from_user() {
            "(Please write in HH:MM format \n)");
     scanf("%d:%d", &hours, &minutes);
 
-    return hours * 24 + minutes * 60;
+    return hours * 24 * 60 + minutes * 60;
 }
 
 /**

@@ -413,231 +413,231 @@
             "price": "10.37",
             "distance": 90,
             "type": "rail",
-            "duration": "65.45"
+            "duration": "3927"
         },
         "A-J": {
             "lineID": 101,
             "price": "10.37",
             "distance": 90,
             "type": "rail",
-            "duration": "65.45"
+            "duration": "3927"
         },
         "A-K": {
             "lineID": 101,
             "price": "10.37",
             "distance": 90,
             "type": "rail",
-            "duration": "65.45"
+            "duration": "3927"
         },
         "B-C": {
             "lineID": 102,
             "price": "6.91",
             "distance": 60,
             "type": "rail",
-            "duration": "43.64"
+            "duration": "2618"
         },
         "C-D": {
             "lineID": 102,
             "price": "17.28",
             "distance": 150,
             "type": "rail",
-            "duration": "109.09"
+            "duration": "6545"
         },
         "D-E": {
             "lineID": 103,
             "price": "11.52",
             "distance": 100,
             "type": "rail",
-            "duration": "72.73"
+            "duration": "4364"
         },
         "D-U": {
             "lineID": 104,
             "price": "6.91",
             "distance": 60,
             "type": "rail",
-            "duration": "43.64"
+            "duration": "2618"
         },
         "D-W": {
             "lineID": 103,
             "price": "9.22",
             "distance": 80,
             "type": "rail",
-            "duration": "58.18"
+            "duration": "3491"
         },
         "E-F": {
             "lineID": 105,
             "price": "11.52",
             "distance": 100,
             "type": "rail",
-            "duration": "72.73"
+            "duration": "4364"
         },
         "E-I": {
             "lineID": 103,
             "price": "11.52",
             "distance": 100,
             "type": "rail",
-            "duration": "72.73"
+            "duration": "4364"
         },
         "G-I": {
             "lineID": 103,
             "price": "4.61",
             "distance": 40,
             "type": "rail",
-            "duration": "29.09"
+            "duration": "1745"
         },
         "H-I": {
             "lineID": 106,
             "price": "4.61",
             "distance": 40,
             "type": "rail",
-            "duration": "29.09"
+            "duration": "1745"
         },
         "J-M": {
             "lineID": 109,
             "price": "14.98",
             "distance": 130,
             "type": "rail",
-            "duration": "94.55"
+            "duration": "5673"
         },
         "J-Q": {
             "lineID": 101,
             "price": "17.28",
             "distance": 150,
             "type": "rail",
-            "duration": "109.09"
+            "duration": "6545"
         },
         "J-T": {
             "lineID": 107,
             "price": "9.22",
             "distance": 80,
             "type": "rail",
-            "duration": "58.18"
+            "duration": "3491"
         },
         "J-W": {
             "lineID": 103,
             "price": "12.67",
             "distance": 110,
             "type": "rail",
-            "duration": "80"
+            "duration": "4800"
         },
         "K-L": {
             "lineID": 101,
             "price": "6.91",
             "distance": 60,
             "type": "rail",
-            "duration": "43.64"
+            "duration": "2618"
         },
         "M-N": {
             "lineID": 108,
             "price": "20.73",
             "distance": 180,
             "type": "rail",
-            "duration": "130.91"
+            "duration": "7855"
         },
         "M-O": {
             "lineID": 109,
             "price": "16.13",
             "distance": 140,
             "type": "rail",
-            "duration": "101.82"
+            "duration": "6109"
         },
         "M-V": {
             "lineID": 110,
             "price": "13.82",
             "distance": 120,
             "type": "rail",
-            "duration": "87.27"
+            "duration": "5236"
         },
         "P-Q": {
             "lineID": 104,
             "price": "8.06",
             "distance": 70,
             "type": "rail",
-            "duration": "50.91"
+            "duration": "3055"
         },
         "P-V": {
             "lineID": 110,
             "price": "8.06",
             "distance": 70,
             "type": "rail",
-            "duration": "50.91"
+            "duration": "3055"
         },
         "Q-R": {
             "lineID": 104,
             "price": "9.22",
             "distance": 80,
             "type": "rail",
-            "duration": "58.18"
+            "duration": "3491"
         },
         "R-T": {
             "lineID": 111,
             "price": "10.37",
             "distance": 90,
             "type": "rail",
-            "duration": "65.45"
+            "duration": "3927"
         },
         "R-U": {
             "lineID": 104,
             "price": "8.06",
             "distance": 70,
             "type": "rail",
-            "duration": "50.91"
+            "duration": "3055"
         },
         "S-U": {
             "lineID": 112,
             "price": "5.76",
             "distance": 50,
             "type": "rail",
-            "duration": "36.36"
+            "duration": "2182"
         },
         "T-W": {
             "lineID": 111,
             "price": "4.61",
             "distance": 40,
             "type": "rail",
-            "duration": "29.09"
+            "duration": "1745"
         },
          "C-E": {
             "lineID": 200,
             "price": "",
             "distance": 216,
             "type": "air",
-            "duration": "24.36"
+            "duration": "1461"
         },
           "C-M": {
             "lineID": 201,
             "price": "",
             "distance": 223,
             "type": "air",
-            "duration": "25.15"
+            "duration": "1509"
         },
            "C-R": {
             "lineID": 202,
             "price": "",
             "distance": 212,
             "type": "air",
-            "duration": "23.91"
+            "duration": "1434"
         },
            "E-R": {
             "lineID": 203,
             "price": "",
             "distance": 223,
             "type": "air",
-            "duration": "25.15"
+            "duration": "1509"
         },
            "E-M": {
             "lineID": 204,
             "price": "",
             "distance": 400,
             "type": "air",
-            "duration": "45.10"
+            "duration": "2706"
         },
            "M-R": {
             "lineID": 205,
             "price": "",
             "distance": 269,
             "type": "air",
-            "duration": "30.33"
+            "duration": "1820"
         }
     }
 }

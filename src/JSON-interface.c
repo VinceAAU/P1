@@ -141,6 +141,7 @@ Station *retrieve_JSON_data(char *filename) {
             station_connection_array[j] = connection;
             j++;
         }
+        station_connection_array[j] = (Connection) {0};
         station_array[i].connections = station_connection_array;
         i++;
     }

@@ -9,38 +9,41 @@
 #include "calculate.h"
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
-
+#define BUFFER_SIZE 100
 Station* start_station_from_user (Station* station){
-    char user_input_start_station;
+    char user_input_start_station[BUFFER_SIZE];
     bool station_is_valid = false;
 
-    while (station_is_valid == false){
+    while (station_is_valid == false) {
         printf("Where does your journey start from\n");
-        scanf("%s", &user_input_start_station);
+        fgets(user_input_start_station, BUFFER_SIZE, stdin);
+        user_input_start_station[strlen(user_input_start_station) - 1] = '\0';
 
         // checking if the station is in our list and returning a true if the station is present
-        station_is_valid = (bool)get_station_by_id(station, user_input_start_station);
+        station_is_valid = (bool) get_station_by_name(station, user_input_start_station);
     }
 
     // returns the station by id
-    return get_station_by_id(station, user_input_start_station);
+    return get_station_by_name(station, user_input_start_station);
 }
 
 Station* end_station_from_user (Station* station){
-    char user_input_end_station;
+    char user_input_end_station[BUFFER_SIZE];
     bool station_is_valid = false;
 
-    while (station_is_valid == false){
+    while (station_is_valid == false) {
         printf("Where does your journey end\n");
-        scanf("%s", &user_input_end_station);
+        fgets(user_input_end_station, BUFFER_SIZE, stdin);
+        user_input_end_station[strlen(user_input_end_station) - 1] = '\0';
 
         // checking if the station is in our list and returning a true if the station is present
-        station_is_valid = (bool)get_station_by_id(station, user_input_end_station);
+        station_is_valid = (bool) get_station_by_name(station, user_input_end_station);
     }
 
     // returns the station by id
-    return get_station_by_id(station, user_input_end_station);
+    return get_station_by_name(station, user_input_end_station);
 }
 
 int journey_start_time_from_user() {

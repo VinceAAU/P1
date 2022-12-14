@@ -45,7 +45,7 @@ Station* end_station_from_user (Station* station){
 
 int journey_start_time_from_user() {
     int seconds = 0;
-    char time[5];
+    char time[6];
 
     printf("At what time would you like to start your journey? \n"
            "(Please write in HH:MM format \n)");
@@ -90,8 +90,8 @@ void print_stations(size_t number_of_stations, Station* station_array) {
 /*
  * TODO: Add change of train/plane at which stations
  */
-void output_result(Station* train_stations, int train_sum_of_time, float train_co2_emitted, float train_sum_of_price,
-                   Station* plane_stations, int plane_sum_of_time, float plane_co2_emitted, float plane_sum_of_price,
+void output_result(Station* optimal_train_route, int train_sum_of_time, float train_co2_emitted, float train_sum_of_price,
+                   Station* optimal_plane_route, int plane_sum_of_time, float plane_co2_emitted, float plane_sum_of_price,
                    int preference){
     int best_transport_mode = -1, train_hours = 0, train_minutes = 0, plane_hours = 0, plane_minutes = 0;
 

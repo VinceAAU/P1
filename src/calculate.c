@@ -2,7 +2,6 @@
 #include "station.c"
 #include <stdlib.h>
 #include <stdio.h>
-#include <assert.h>
 
 #define AIR_CO2_PER_KM (float)3.14
 #define RAIL_CO2_PER_KM (float)0.14

@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define AIR_CO2_PER_KM (float)3.14
-#define RAIL_CO2_PER_KM (float)0.14
+#define AIR_CO2_PER_KM (float)88.8
+#define RAIL_CO2_PER_KM (float)21.5
 
 /**
  * Find the number of connections a station has.

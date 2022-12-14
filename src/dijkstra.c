@@ -83,16 +83,16 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(int number_of_stations, Stat
     return *adjacency_matrix;
 }
 
-void reverse(Station arr[], int n)
+void reverse_array(Station array[], int length)
 {
-    Station aux[n];
+    Station temp[length];
 
-    for (int i = 0; i < n; i++) {
-        aux[n - 1 - i] = arr[i];
+    for (int i = 0; i < length; i++) {
+        temp[length - 1 - i] = array[i];
     }
 
-    for (int i = 0; i < n; i++) {
-        arr[i] = aux[i];
+    for (int i = 0; i < length; i++) {
+        array[i] = temp[i];
     }
 }
 
@@ -104,8 +104,8 @@ int check_table(int current_time, Station station)
 Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_of_stations, Station* station_array, int* route_length, int current_time)
 {
     Station* indexed_array = index_station_array(number_of_stations, station_array);
-    int cost[number_of_stations][number_of_stations], distance[number_of_stations], pred[number_of_stations];
-    int visited[number_of_stations], count, mindistance, nextnode, i, j;
+    int cost[number_of_stations][number_of_stations], distance[number_of_stations], predecessor[number_of_stations];
+    int visited[number_of_stations], count, min_distance, next_node, i, j;
 
     // *(G + i * number_of_stations + j) is the same as G[i][j]
 
@@ -121,28 +121,28 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
 
     for (i = 0; i < number_of_stations; i++) {
         distance[i] = cost[startnode][i];
-        pred[i] = startnode;
+        predecessor[i] = startnode;
         visited[i] = 0;
     }
     distance[startnode] = 0;
     visited[startnode] = 1;
     count = 1;
     while (count < number_of_stations - 1) {
-        mindistance = INFINITY;
+        min_distance = INFINITY;
 
         //nextnode gives the node at minimum distance
         for (i = 0; i < number_of_stations; i++)
-            if (distance[i] < mindistance && !visited[i]) {
-                mindistance = distance[i];
-                nextnode = i;
+            if (distance[i] < min_distance && !visited[i]) {
+                min_distance = distance[i];
+                next_node = i;
             }
         //check if a better path exists through nextnode
-        visited[nextnode] = 1;
+        visited[next_node] = 1;
         for (i = 0; i < number_of_stations; i++)
             if (!visited[i])
-                if (mindistance + cost[nextnode][i] < distance[i]) {
-                    distance[i] = mindistance + cost[nextnode][i];
-                    pred[i] = nextnode;
+                if (min_distance + cost[next_node][i] < distance[i]) {
+                    distance[i] = min_distance + cost[next_node][i];
+                    predecessor[i] = next_node;
                 }
         count++;
     }
@@ -152,7 +152,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
     j = endnode;
     int counter = 1;
     do {
-        j = pred[j];
+        j = predecessor[j];
         counter ++;
     } while (j != startnode);
 
@@ -162,7 +162,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
     optimal_path[0] = station_array[endnode];
     for(i = 0; j != startnode; i++ )
     {
-        j = pred[j];
+        j = predecessor[j];
         optimal_path[i+1] = station_array[j];
     }
 
@@ -176,7 +176,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, int number_o
         return NULL; // returns null if there is no possible route between the two nodes
     }
 
-    reverse(optimal_path,counter);
+    reverse_array(optimal_path,counter);
 
     return optimal_path;
 
@@ -224,7 +224,7 @@ void print_matrix(int size, int*matrix)
     int i, j;
     for(i=0; i<size; i++) {
         for (j = 0; j < size; j++) {
-            printf("%d ", *(matrix + i * size + j)); // totally not copy-pasted code from stack overflow
+            printf("%d ", *(matrix + i * size + j));
         }
         printf("\n");
     }

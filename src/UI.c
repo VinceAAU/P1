@@ -17,7 +17,7 @@ Station* start_station_from_user (Station* station){
 
     while (station_is_valid == false){
         printf("Where does your journey start from\n");
-        scanf("%s ", &user_input_start_station);
+        scanf("%s", &user_input_start_station);
 
         // checking if the station is in our list and returning a true if the station is present
         station_is_valid = (bool)get_station_by_id(station, user_input_start_station);
@@ -33,7 +33,7 @@ Station* end_station_from_user (Station* station){
 
     while (station_is_valid == false){
         printf("Where does your journey end\n");
-        scanf("%s ", &user_input_end_station);
+        scanf("%s", &user_input_end_station);
 
         // checking if the station is in our list and returning a true if the station is present
         station_is_valid = (bool)get_station_by_id(station, user_input_end_station);
@@ -48,7 +48,7 @@ int journey_start_time_from_user() {
     char time[6];
 
     printf("At what time would you like to start your journey? \n"
-           "(Please write in HH:MM format \n)");
+           "(Please write in HH:MM format) \n");
     scanf("%5s", time);
 
     seconds = string_to_seconds(time);
@@ -71,7 +71,7 @@ int select_preference() {
            "Write: '0' for Time \n"
            "Write: '1' for Climate \n"
            "Write: '2' for Price \n" );
-    scanf(" %d ", &preference);
+    scanf("%d", &preference);
 
     if (!(preference >= 0 && preference <= 2)) {
         printf("Your input was invalid, please try again. \n");
@@ -83,7 +83,7 @@ int select_preference() {
 
 void print_stations(size_t number_of_stations, Station* station_array) {
     for(int i = 0; i < number_of_stations; i++) {
-        printf("Station: %d\n", station_array[i].id);
+        printf("Station: %c \n", station_array[i].id);
     }
 }
 

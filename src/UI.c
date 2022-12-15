@@ -136,33 +136,33 @@ void output_result(Station* optimal_train_route, int train_sum_of_time, float tr
     number_of_plane_stations = station_list_length(optimal_plane_route);
 
     if(best_transport_mode == 0){
-        printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
-        printf("These are all the stations on your optimal train route: \n");
-        print_stations(number_of_train_stations, optimal_train_route);
+        print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
 
-        printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
-        printf("These are all the stations on your optimal plane route: \n");
-        print_stations(number_of_plane_stations, optimal_plane_route);
+        print_optimal_plane_route(number_of_plane_stations, optimal_plane_route, plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
     }else if (best_transport_mode == 1){
-        printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
-        printf("These are all the stations on your optimal plane route: \n");
-        print_stations(number_of_plane_stations, optimal_plane_route);
+        print_optimal_plane_route(number_of_plane_stations, optimal_plane_route, plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
 
-        printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
-        printf("These are all the stations on your optimal train route: \n");
-        print_stations(number_of_train_stations, optimal_train_route);
+        print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
+
     }else{
         printf("Could not find route from preference.\n Train and plane route will simply be output\n");
 
-        printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
-        printf("These are all the stations on your optimal train route: \n");
-        print_stations(number_of_train_stations, optimal_train_route);
+        print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
 
-        printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
-        printf("These are all the stations on your optimal plane route: \n");
-        print_stations(number_of_plane_stations, optimal_plane_route);
+        print_optimal_plane_route(number_of_plane_stations, optimal_plane_route, plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
 
     }
 
 }
 
+void print_optimal_train_route(size_t number_of_train_stations, Station* optimal_train_route, int train_hours, int train_minutes, float train_co2_emitted, float train_sum_of_price){
+    printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
+    printf("These are all the stations on your optimal train route: \n");
+    print_stations(number_of_train_stations, optimal_train_route);
+}
+
+void print_optimal_plane_route(size_t number_of_plane_stations, Station* optimal_plane_route, int plane_hours, int plane_minutes, float plane_co2_emitted, float plane_sum_of_price){
+    printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf kr.\n", plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
+    printf("These are all the stations on your optimal plane route: \n");
+    print_stations(number_of_plane_stations, optimal_plane_route);
+}

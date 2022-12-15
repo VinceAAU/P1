@@ -15,7 +15,7 @@ int string_to_seconds(char *string) {
     int hours, minutes, seconds;
 
     sscanf(string, "%d:%d", &hours, &minutes);
-    if (hours >= 24 || hours < 0 || minutes >= 60 || minutes < 0) {
+    if (hours < 0 || minutes >= 60 || minutes < 0) {
         return -1;
     }
 

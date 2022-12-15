@@ -113,7 +113,7 @@ Station *retrieve_JSON_data(char *filename) {
 
             char *beginning_str = cJSON_GetObjectItem(station_json, "ID")->valuestring;
 
-            Route route;
+            Route *route = malloc(sizeof(Route));
 
             char *route_id_str = malloc((strlen(beginning_str) + 1 + strlen(destination_str) + 1) * sizeof(char));
             get_route_id_str(beginning_str, destination_str, route_id_str);
@@ -128,15 +128,15 @@ Station *retrieve_JSON_data(char *filename) {
             struct Station *station_a = get_station_by_id(station_array, convert_string_to_id(beginning_str));
             struct Station *station_b = get_station_by_id(station_array, convert_string_to_id(destination_str));
 
-            route.node1 = (station_a->id) > (station_b->id) ? station_a : station_b;
-            route.node2 = (station_a->id) < (station_b->id) ? station_a : station_b;
-            route.line = cJSON_GetObjectItem(route_json, "lineID")->valueint;
-            route.price = cJSON_GetObjectItem(route_json, "price")->valuedouble;
-            route.distance = cJSON_GetObjectItem(route_json, "distance")->valueint;
-            route.duration = string_to_seconds(cJSON_GetObjectItem(route_json, "duration")->valuestring);
-            route.type     = strcmp(cJSON_GetObjectItem(route_json, "type")->valuestring, "rail")==0 ? RAIL : AIR;
+            route->node1 = (station_a->id) < (station_b->id) ? station_a : station_b;
+            route->node2 = (station_a->id) > (station_b->id) ? station_a : station_b;
+            route->line = cJSON_GetObjectItem(route_json, "lineID")->valueint;
+            route->price = cJSON_GetObjectItem(route_json, "price")->valuedouble;
+            route->distance = cJSON_GetObjectItem(route_json, "distance")->valueint;
+            route->duration = string_to_seconds(cJSON_GetObjectItem(route_json, "duration")->valuestring);
+            route->type = strcmp(cJSON_GetObjectItem(route_json, "type")->valuestring, "rail") == 0 ? RAIL : AIR;
 
-            connection.route = &route;
+            connection.route = route;
 
             station_connection_array[j] = connection;
             j++;

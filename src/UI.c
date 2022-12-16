@@ -149,7 +149,7 @@ void output_result(Station* optimal_train_route, int train_sum_of_time, float tr
     number_of_train_stations = station_list_length(optimal_train_route);
     number_of_plane_stations = station_list_length(optimal_plane_route);
     //checks whether the two routes are identical, and only outputs the train route if that is the case
-    non_identical_route = check_optimal_route(number_of_train_stations, optimal_train_route, optimal_plane_route);
+    non_identical_route = check_identical_route(number_of_train_stations, optimal_train_route, optimal_plane_route);
     if (non_identical_route) {
         if (best_transport_mode == 0) {
             print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes,
@@ -216,9 +216,9 @@ void print_optimal_plane_route(size_t number_of_plane_stations, Station* optimal
  * @param optimal_plane_route
  * @return
  */
-int check_optimal_route(size_t number_of_train_stations, Station* optimal_train_route, Station* optimal_plane_route){
+int check_identical_route(size_t number_of_train_stations, Station* optimal_train_route, Station* optimal_plane_route){
     for(int i = 0; i < number_of_train_stations; i++){
-        if(optimal_plane_route[i].name == optimal_train_route[0].name){
+        if(optimal_plane_route[i].name == optimal_train_route[i].name){
 
         }else{
             return 1;

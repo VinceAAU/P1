@@ -161,6 +161,10 @@ char *read_entire_file(char *filename) {
 
     FILE *file = fopen(filename, "rb");
 
+    if (file == NULL) {
+        fprintf(stderr, "File \"%s\" cannot be accessed", filename);
+    }
+
     //Get file size
     fseek(file, 0L, SEEK_END);
     file_size = ftell(file);

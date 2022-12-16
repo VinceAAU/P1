@@ -105,7 +105,7 @@ void output_result(Station* optimal_train_route, int train_sum_of_time, float tr
     //The switch checks which route is better according to the preference chosen early in the program
     switch (preference) {
         case 0: //time
-            if(train_sum_of_time < plane_sum_of_time){
+            if(train_sum_of_time <= plane_sum_of_time){
                 printf(" Train\n");
                 best_transport_mode = 0;
             }else{
@@ -114,7 +114,7 @@ void output_result(Station* optimal_train_route, int train_sum_of_time, float tr
             }
             break;
         case 1: //CO2
-            if(train_co2_emitted < plane_co2_emitted){
+            if(!(train_co2_emitted > plane_co2_emitted)){
                 printf(" Train\n");
                 best_transport_mode = 0;
             }else{
@@ -123,7 +123,7 @@ void output_result(Station* optimal_train_route, int train_sum_of_time, float tr
             }
             break;
         case 2: //price
-            if(train_sum_of_price < plane_sum_of_price){
+            if(!(train_sum_of_price > plane_sum_of_price)){
                 printf(" Train\n");
                 best_transport_mode = 0;
             }else{

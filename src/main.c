@@ -29,21 +29,29 @@ int main(void) {
 
     // Finding both the optimal train and plane route.
     Station* optimal_plane_route = run_dijkstras(number_of_stations, stations, AIR, start_time, &plane_sum_time, start_station->id,end_station->id);
-    printf("%d",optimal_plane_route[0].id);
-  //  Station* optimal_train_route = run_dijkstras(number_of_stations, stations, RAIL, start_time, &train_sum_time, start_station->id, end_station->id);
+    Station* optimal_train_route = run_dijkstras(number_of_stations, stations, RAIL, start_time, &train_sum_time, start_station->id, end_station->id);
 
+/*
+    size_t optimal_trains = station_list_length(optimal_train_route);
+    size_t optimal_planes = station_list_length(optimal_plane_route);
 
-    // Calculating the price and CO2 emitted for the train route.
-  //  train_sum_of_price = calculate_price(optimal_train_route);
-  //  train_co2_emitted = calculate_co2(optimal_train_route);
+    printf("Route for trains only is: %d\n",train_sum_time);
+    print_stations(optimal_trains,optimal_train_route);
+    printf("Route with planes allowed is: %d\n", plane_sum_time);
+    print_stations(optimal_planes,optimal_plane_route);
+*/
+
+     //Calculating the price and CO2 emitted for the train route.
+    train_sum_of_price = calculate_price(optimal_train_route);
+    train_co2_emitted = calculate_co2(optimal_train_route);
 
     // Calculating the price and CO2 emitted for the plane route.
-   // plane_sum_of_price = calculate_price(optimal_plane_route);
-  //  plane_co2_emitted = calculate_co2(optimal_plane_route);
+    plane_sum_of_price = calculate_price(optimal_plane_route);
+    plane_co2_emitted = calculate_co2(optimal_plane_route);
 
-    // Outputting the result for the user to read.
-  // output_result(optimal_train_route, train_sum_time, train_co2_emitted, train_sum_of_price,
-     //             optimal_plane_route, plane_sum_time, plane_co2_emitted, plane_sum_of_price,
-     //             preference);
+     //Outputting the result for the user to read.
+   output_result(optimal_train_route, train_sum_time, train_co2_emitted, train_sum_of_price,
+                  optimal_plane_route, plane_sum_time, plane_co2_emitted, plane_sum_of_price,
+                  preference);
 
 }

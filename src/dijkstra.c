@@ -162,7 +162,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
         counter ++;
     } while (j != startnode);
 
-    Station* optimal_path = malloc(counter * sizeof(Station)+1);
+    Station *optimal_path = malloc((counter + 1) * sizeof(Station));
 
     optimal_path[counter] = (Station){0};
 

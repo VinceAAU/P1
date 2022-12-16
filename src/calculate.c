@@ -2,6 +2,7 @@
 #include "station.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #define AIR_CO2_PER_KM (float)0.0888
 #define RAIL_CO2_PER_KM (float)0.0215
@@ -35,6 +36,7 @@ float calculate_price(Station* stations) {
 
     for (size_t i = 0; i < stations_length; ++i) {
         size_t connections_length = connection_list_length(stations[i].connections);
+        bool last_connection_train = false;
         for (size_t j = 0; j < connections_length; ++j) {
             /* Finds the connection which leads to the next station in the array. */
             if (stations[i].connections[j].station->id == stations[i+1].id) {
@@ -42,13 +44,18 @@ float calculate_price(Station* stations) {
                 /* Checks if the travel is by train and if it is the first train station in the journey.
                    If so, it adds 2.5 euros (starting price for a train journey) to the price sum. */
                 if (stations[i].connections[j].route->type == RAIL && i != 0) {
-                    if (stations[i-1].connections[j].route->type != RAIL) {
+                    if (last_connection_train) {
                         sum_of_prices += (float) 2.5;
                     }
                 }
                 /* Like the above check, however, this only checks the very first station. */
                 else if (stations[i].connections[j].route->type == RAIL && i == 0) {
                     sum_of_prices += (float) 2.5;
+                }
+                if (stations[i].connections[j].route->type == RAIL) {
+                    last_connection_train = true;
+                } else {
+                    last_connection_train = false;
                 }
             }
         }

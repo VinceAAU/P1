@@ -7,11 +7,13 @@
 
 #define INFINITY 999999 // must be higher than all route durations combined.
 
-/* TODO: Account for route changes by checking timetables
+/*
+ * TODO: Test Airplane Inclusion
+ * TODO: Fix segfault when allocating a second matrix
+ * TODO: Account for route changes by checking timetables
  * if a route change is required, check the timetable and add
  * the time difference to the cost matrix
- *
- * TODO: Include airplane routes
+
  *make a seperate cost matrix, which includes planes
  *
  *
@@ -24,9 +26,9 @@ Station * index_station_array(size_t number_of_stations, Station* station_array)
     // copies in elements from first array to second, cause apparently you have to do that in C
     for (int i = 0; i < number_of_stations; i++) {
         array[i] = station_array[i];
-        printf("Station: %d",array[i].id);
+       // printf("Station: %d",array[i].id);
         array[i].id = i; // changes id to array position
-        printf(" is now %d\n", array[i].id);
+       // printf(" is now %d\n", array[i].id);
     }
 
 
@@ -52,12 +54,12 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(size_t number_of_stations, S
 
             for (int i = 0; i < connections; i++) {
                 Connection current_connection = indexed_array[row].connections[i];
-                printf("%d\n",indexed_array[row].id);
+            //    printf("%d\n",indexed_array[row].id);
                 if(current_connection.route->type == RAIL) {
                     adjacency_matrix[row][current_connection.station->id-65] = indexed_array[row].connections[i].route->duration;
-                    printf("\n Setting:%d, %d to %d ",row, current_connection.station->id-65,indexed_array[row].connections[i].route->duration);
+                    //printf("\n Setting:%d, %d to %d ",row, current_connection.station->id-65,indexed_array[row].connections[i].route->duration);
                 }
-                // If JSON checker doesn't order the route, the adjacency matrix function will have to.
+                // -65 on the connection IDS is a hotfix. This wouldn't work if stations had ids beyond one letter
             }
             if(allow_planes_bool)
             {
@@ -67,13 +69,12 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(size_t number_of_stations, S
                     {
                         adjacency_matrix[row][current_connection.station->id] = indexed_array[row].connections[i].route[1].duration;
                     }
-                    // If JSON checker doesn't order the route, the adjacency matrix function will have to.
                 }
             }
 
     }
 
-    print_matrix(23,*adjacency_matrix);
+ //   print_matrix(23,*adjacency_matrix);
     return *adjacency_matrix;
 }
 
@@ -98,7 +99,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
 
     startnode -=65;
     endnode -=65;
-
+    // -65 on the nodes is a hotfix. This wouldn't work if stations had ids beyond one letter
     // *(G + i * number_of_stations + j) is the same as G[i][j]
 
     /* TODO:
@@ -111,11 +112,11 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
             else
                 cost[i][j] = *(G + i * number_of_stations + j);
 
-    print_matrix(23,*cost);
-    printf("startNode %d",startnode);
+ //   print_matrix(23,*cost);
+ //   printf("startNode %d",startnode);
 
     for (i = 0; i < number_of_stations; i++) {
-        printf("%d\n",cost[startnode][i]);
+  //      printf("%d\n",cost[startnode][i]);
         distance[i] = cost[startnode][i];
         predecessor[i] = startnode;
         visited[i] = 0;
@@ -129,12 +130,12 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
 
         //nextnode gives the node at minimum distance
         for (i = 0; i < number_of_stations -1; i++) {
-            printf("\nDist: %d\n",distance[i]);
-            printf("\nVisit: %d\n", visited[i]);
+         //   printf("\nDist: %d\n",distance[i]);
+       //     printf("\nVisit: %d\n", visited[i]);
             if (distance[i] < min_distance && !visited[i]) {
                 min_distance = distance[i];
                 next_node = i;
-                printf("\nCondition true!%d\n", next_node);
+              //  printf("\nCondition true!%d\n", next_node);
             }
            // printf("\n%d\n", next_node);
         }
@@ -160,7 +161,9 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
         counter ++;
     } while (j != startnode);
 
-    Station* optimal_path = malloc(counter * sizeof(Station));
+    Station* optimal_path = malloc(counter * sizeof(Station)+1);
+
+    optimal_path[counter] = (Station){0};
 
     j = endnode;
     optimal_path[0] = station_array[endnode];
@@ -176,7 +179,9 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
         return NULL; // returns null if there is no possible route between the two nodes
     }
 
+    // reverses array
     reverse_array(optimal_path,counter);
+
 
     return optimal_path;
 

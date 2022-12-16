@@ -24,8 +24,11 @@ Station * index_station_array(size_t number_of_stations, Station* station_array)
     // copies in elements from first array to second, cause apparently you have to do that in C
     for (int i = 0; i < number_of_stations; i++) {
         array[i] = station_array[i];
+        printf("Station: %d",array[i].id);
         array[i].id = i; // changes id to array position
+        printf(" is now %d\n", array[i].id);
     }
+
 
     return array;
 }
@@ -49,8 +52,10 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(size_t number_of_stations, S
 
             for (int i = 0; i < connections; i++) {
                 Connection current_connection = indexed_array[row].connections[i];
+                printf("%d\n",indexed_array[row].id);
                 if(current_connection.route->type == RAIL) {
-                    adjacency_matrix[row][current_connection.station->id] = indexed_array[row].connections[i].route->duration;
+                    adjacency_matrix[row][current_connection.station->id-65] = indexed_array[row].connections[i].route->duration;
+                    printf("\n Setting:%d, %d to %d ",row, current_connection.station->id-65,indexed_array[row].connections[i].route->duration);
                 }
                 // If JSON checker doesn't order the route, the adjacency matrix function will have to.
             }
@@ -68,6 +73,7 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(size_t number_of_stations, S
 
     }
 
+    print_matrix(23,*adjacency_matrix);
     return *adjacency_matrix;
 }
 

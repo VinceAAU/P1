@@ -190,7 +190,7 @@ void output_result(Station* optimal_train_route, int train_sum_of_time, float tr
  * @param train_sum_of_price
  */
 void print_optimal_train_route(size_t number_of_train_stations, Station* optimal_train_route, int train_hours, int train_minutes, float train_co2_emitted, float train_sum_of_price){
-    printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %.2lf EUR.\n", train_hours,
+    printf("Train: Travel time: %d hours and %d minutes, Co2 emission: %.3lf kg, estimated cost: %.2lf EUR.\n", train_hours,
            train_minutes, train_co2_emitted, train_sum_of_price);
     printf("These are all the stations on your optimal train route: \n");
     print_stations(number_of_train_stations, optimal_train_route);
@@ -205,14 +205,13 @@ void print_optimal_train_route(size_t number_of_train_stations, Station* optimal
  * @param plane_sum_of_price
  */
 void print_optimal_plane_route(size_t number_of_plane_stations, Station* optimal_plane_route, int plane_hours, int plane_minutes, float plane_co2_emitted, float plane_sum_of_price){
-    printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %.2lf EUR.\n",
-           plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
+    printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %.3lf kg, estimated cost: %.2lf EUR .\n", plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
     printf("These are all the stations on your optimal plane route: \n");
     print_stations(number_of_plane_stations, optimal_plane_route);
 }
 /**
  * Checks whether the two routes are identical
- * @param number_of_train_stations
+ * @param number_of_train_stations //used for running the for loop, so that it can return false if they are identical
  * @param optimal_train_route
  * @param optimal_plane_route
  * @return

@@ -11,6 +11,7 @@
  * TODO: Test Airplane Inclusion
  * TODO: Fix segfault when allocating a second matrix
  * TODO: Account for route changes by checking timetables
+ * TODO: Actually free memory lol
  * if a route change is required, check the timetable and add
  * the time difference to the cost matrix
 
@@ -67,14 +68,14 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(size_t number_of_stations, S
                     Connection current_connection = indexed_array[row].connections[i];
                     if(current_connection.route->type == AIR)
                     {
-                        adjacency_matrix[row][current_connection.station->id] = indexed_array[row].connections[i].route[1].duration;
+                        adjacency_matrix[row][current_connection.station->id-65] = indexed_array[row].connections[i].route->duration+7200; // 2 hours added for signing in/ going through security in airports
                     }
                 }
             }
 
     }
 
- //   print_matrix(23,*adjacency_matrix);
+  //  print_matrix(23,*adjacency_matrix);
     return *adjacency_matrix;
 }
 
@@ -112,7 +113,7 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
             else
                 cost[i][j] = *(G + i * number_of_stations + j);
 
- //   print_matrix(23,*cost);
+  //  print_matrix(23,*cost);
  //   printf("startNode %d",startnode);
 
     for (i = 0; i < number_of_stations; i++) {

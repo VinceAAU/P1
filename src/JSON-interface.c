@@ -65,7 +65,7 @@ Station *retrieve_JSON_data(char *filename) {
         char* routeID = route_json->string; //TODO: Name this with whatever name Lasse gives this
         char* station_string_a = malloc(sizeof(char) * (MAXIMUM_STATION_ID_LENGTH+1));
         char* station_string_b = malloc(sizeof(char) * (MAXIMUM_STATION_ID_LENGTH+1));
-        sscanf(routeID, "%s:%s", station_string_a, station_string_b);
+        sscanf(routeID, "%[^-]-%s", station_string_a, station_string_b);
 
         route.node1 = get_station_by_id(station_array, convert_string_to_id(station_string_a));
         route.node2 = get_station_by_id(station_array, convert_string_to_id(station_string_b));

@@ -45,7 +45,7 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(size_t number_of_stations, S
 
     for (int row = 0; row < number_of_stations; row++) {
 
-        size_t connections = connection_list_length(indexed_array[row].connections); // TODO: replace with connection_list_length from station.h
+        size_t connections = connection_list_length(indexed_array[row].connections);
 
             for (int i = 0; i < connections; i++) {
                 Connection current_connection = indexed_array[row].connections[i];
@@ -90,6 +90,9 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
     int cost[number_of_stations][number_of_stations], distance[number_of_stations], predecessor[number_of_stations];
     int visited[number_of_stations], count, min_distance, next_node, i, j;
 
+    startnode -=65;
+    endnode -=65;
+
     // *(G + i * number_of_stations + j) is the same as G[i][j]
 
     /* TODO:
@@ -102,7 +105,11 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
             else
                 cost[i][j] = *(G + i * number_of_stations + j);
 
+    print_matrix(23,*cost);
+    printf("startNode %d",startnode);
+
     for (i = 0; i < number_of_stations; i++) {
+        printf("%d\n",cost[startnode][i]);
         distance[i] = cost[startnode][i];
         predecessor[i] = startnode;
         visited[i] = 0;
@@ -110,15 +117,23 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
     distance[startnode] = 0;
     visited[startnode] = 1;
     count = 1;
+  //  printf("\n%d\n", next_node);
     while (count < number_of_stations - 1) {
         min_distance = INFINITY;
 
         //nextnode gives the node at minimum distance
-        for (i = 0; i < number_of_stations; i++)
+        for (i = 0; i < number_of_stations -1; i++) {
+            printf("\nDist: %d\n",distance[i]);
+            printf("\nVisit: %d\n", visited[i]);
             if (distance[i] < min_distance && !visited[i]) {
                 min_distance = distance[i];
                 next_node = i;
+                printf("\nCondition true!%d\n", next_node);
             }
+           // printf("\n%d\n", next_node);
+        }
+
+        //printf("\n%d\n", next_node);
         //check if a better path exists through nextnode
         visited[next_node] = 1;
         for (i = 0; i < number_of_stations; i++)
@@ -211,14 +226,18 @@ void print_matrix(int size, int*matrix)
 
 Station* run_dijkstras(size_t total_number_of_stations, Station* all_stations, TravelType travel_type, int current_time, int* output_time, ID start_node, ID end_node)
 {
-    int * matrix;
+    int * matrixrail;
+    int * matrixair;
+    Station * optimal_route;
     if(travel_type == AIR) {
-        matrix = create_adjacency_matrix_for_dijkstra_algorithm(total_number_of_stations, all_stations, 1);
+        matrixair = create_adjacency_matrix_for_dijkstra_algorithm(total_number_of_stations, all_stations, 1);
+        optimal_route = calculate_optimal_route(matrixair, start_node, end_node, total_number_of_stations, all_stations, current_time, output_time);
     }
     else {
-        matrix = create_adjacency_matrix_for_dijkstra_algorithm(total_number_of_stations, all_stations, 0);
+        matrixrail = create_adjacency_matrix_for_dijkstra_algorithm(total_number_of_stations, all_stations, 0);
+        optimal_route = calculate_optimal_route(matrixrail, start_node, end_node, total_number_of_stations, all_stations, current_time, output_time);
     }
 
-    return calculate_optimal_route(matrix, start_node, end_node, total_number_of_stations, all_stations, current_time, output_time);
+    return optimal_route;
 }
 

@@ -11,7 +11,7 @@ int main(void) {
     // Declaring and initialising variables and extracting JSON data.
     int start_time = 0, preference = -1, train_sum_time = -1, plane_sum_time = -1;
     float train_co2_emitted = 0, plane_co2_emitted = 0, train_sum_of_price = 0, plane_sum_of_price = 0;
-    Station *stations = retrieve_JSON_data("/home/vince/Documents/aau/S1/P1/example.json");
+    Station *stations = retrieve_JSON_data("C:\\Users\\Daniel\\CLionProjects\\P1\\example.json");
 
     // Output list of all stations for the user to read.
     size_t number_of_stations = station_list_length(stations);
@@ -24,24 +24,26 @@ int main(void) {
     start_time = journey_start_time_from_user();
     preference = select_preference();
 
-    printf("First station has %d duration\n",stations[0].connections[0].route->duration);
+ //   printf("First station has %d duration\n",stations[0].connections[0].route->duration);
 
 
     // Finding both the optimal train and plane route.
-    Station* optimal_train_route = run_dijkstras(number_of_stations, stations, RAIL, start_time, &train_sum_time, start_station->id, end_station->id);
     Station* optimal_plane_route = run_dijkstras(number_of_stations, stations, AIR, start_time, &plane_sum_time, start_station->id,end_station->id);
+    printf("%d",optimal_plane_route[0].id);
+  //  Station* optimal_train_route = run_dijkstras(number_of_stations, stations, RAIL, start_time, &train_sum_time, start_station->id, end_station->id);
+
 
     // Calculating the price and CO2 emitted for the train route.
-    train_sum_of_price = calculate_price(optimal_train_route);
-    train_co2_emitted = calculate_co2(optimal_train_route);
+  //  train_sum_of_price = calculate_price(optimal_train_route);
+  //  train_co2_emitted = calculate_co2(optimal_train_route);
 
     // Calculating the price and CO2 emitted for the plane route.
-    plane_sum_of_price = calculate_price(optimal_plane_route);
-    plane_co2_emitted = calculate_co2(optimal_plane_route);
+   // plane_sum_of_price = calculate_price(optimal_plane_route);
+  //  plane_co2_emitted = calculate_co2(optimal_plane_route);
 
     // Outputting the result for the user to read.
-    output_result(optimal_train_route, train_sum_time, train_co2_emitted, train_sum_of_price,
-                  optimal_plane_route, plane_sum_time, plane_co2_emitted, plane_sum_of_price,
-                  preference);
+  // output_result(optimal_train_route, train_sum_time, train_co2_emitted, train_sum_of_price,
+     //             optimal_plane_route, plane_sum_time, plane_co2_emitted, plane_sum_of_price,
+     //             preference);
 
 }

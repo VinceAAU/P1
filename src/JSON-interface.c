@@ -56,7 +56,7 @@ Station *retrieve_JSON_data(char *filename) {
     //We will do that at the end
 
     //Put all routes into memory
-    cJSON* route_array_json = cJSON_GetObjectItem(json, "connections");
+    cJSON* route_array_json = cJSON_GetObjectItem(json, "routes");
     Route* route_array = malloc((cJSON_GetArraySize(route_array_json) + 1) * sizeof(Route));
     cJSON* route_json;
     i = 0;

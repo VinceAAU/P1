@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define AIR_CO2_PER_KM (float)88.8
-#define RAIL_CO2_PER_KM (float)21.5
+#define AIR_CO2_PER_KM (float)0.0888
+#define RAIL_CO2_PER_KM (float)0.0215
 
 
 /**

@@ -98,35 +98,35 @@ void print_stations(size_t number_of_stations, Station* station_array) {
  */
 void output_result(Station* optimal_train_route, int train_sum_of_time, float train_co2_emitted, float train_sum_of_price,
                    Station* optimal_plane_route, int plane_sum_of_time, float plane_co2_emitted, float plane_sum_of_price,
-                   int preference){
-    int best_transport_mode = -1, train_hours = 0, train_minutes = 0, plane_hours = 0, plane_minutes = 0;
+                   int preference) {
+    int best_transport_mode = -1, train_hours = 0, train_minutes = 0, plane_hours = 0, plane_minutes = 0, non_identical_route = -1;
     size_t number_of_train_stations = 0, number_of_plane_stations = 0;
-            printf("For your preference you should choose:");
+    printf("For your preference you should choose:");
     //The switch checks which route is better according to the preference chosen early in the program
     switch (preference) {
         case 0: //time
-            if(train_sum_of_time <= plane_sum_of_time){
+            if (train_sum_of_time <= plane_sum_of_time) {
                 printf(" Train\n");
                 best_transport_mode = 0;
-            }else{
+            } else {
                 printf(" Plane\n");
                 best_transport_mode = 1;
             }
             break;
         case 1: //CO2
-            if(!(train_co2_emitted > plane_co2_emitted)){
+            if (!(train_co2_emitted > plane_co2_emitted)) {
                 printf(" Train\n");
                 best_transport_mode = 0;
-            }else{
+            } else {
                 printf(" Plane\n");
                 best_transport_mode = 1;
             }
             break;
         case 2: //price
-            if(!(train_sum_of_price > plane_sum_of_price)){
+            if (!(train_sum_of_price > plane_sum_of_price)) {
                 printf(" Train\n");
                 best_transport_mode = 0;
-            }else{
+            } else {
                 printf(" Plane\n");
                 best_transport_mode = 1;
             }
@@ -136,37 +136,49 @@ void output_result(Station* optimal_train_route, int train_sum_of_time, float tr
             break;
     }
     //converting seconds to hours and minutes
-    train_minutes = train_sum_of_time/60;
-    train_hours = train_minutes/60;
-    train_minutes = train_minutes%60;
+    train_minutes = train_sum_of_time / 60;
+    train_hours = train_minutes / 60;
+    train_minutes = train_minutes % 60;
 
     //converting seconds to hours and minutes
-    plane_minutes = plane_sum_of_time/60;
-    plane_hours = plane_minutes/60;
-    plane_minutes = plane_minutes%60;
+    plane_minutes = plane_sum_of_time / 60;
+    plane_hours = plane_minutes / 60;
+    plane_minutes = plane_minutes % 60;
 
     //finding number of stations on both the optimal routes, as it is used later
     number_of_train_stations = station_list_length(optimal_train_route);
     number_of_plane_stations = station_list_length(optimal_plane_route);
+    //checks whether the two routes are identical, and only outputs the train route if that is the case
+    non_identical_route = check_optimal_route(number_of_train_stations, optimal_train_route, optimal_plane_route);
+    if (non_identical_route) {
+        if (best_transport_mode == 0) {
+            print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes,
+                                      train_co2_emitted, train_sum_of_price);
 
-    if(best_transport_mode == 0){
-        print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
+            print_optimal_plane_route(number_of_plane_stations, optimal_plane_route, plane_hours, plane_minutes,
+                                      plane_co2_emitted, plane_sum_of_price);
+        } else if (best_transport_mode == 1) {
+            print_optimal_plane_route(number_of_plane_stations, optimal_plane_route, plane_hours, plane_minutes,
+                                      plane_co2_emitted, plane_sum_of_price);
 
-        print_optimal_plane_route(number_of_plane_stations, optimal_plane_route, plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
-    }else if (best_transport_mode == 1){
-        print_optimal_plane_route(number_of_plane_stations, optimal_plane_route, plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
+            print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes,
+                                      train_co2_emitted, train_sum_of_price);
 
-        print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
+        } else {
+            printf("Could not find route from preference.\n Train and plane route will simply be output\n");
 
+            print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes,
+                                      train_co2_emitted, train_sum_of_price);
+
+            print_optimal_plane_route(number_of_plane_stations, optimal_plane_route, plane_hours, plane_minutes,
+                                      plane_co2_emitted, plane_sum_of_price);
+
+        }
     }else{
-        printf("Could not find route from preference.\n Train and plane route will simply be output\n");
-
-        print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes, train_co2_emitted, train_sum_of_price);
-
-        print_optimal_plane_route(number_of_plane_stations, optimal_plane_route, plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
-
+        printf("There i no fast route with planes\n");
+        print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes,
+                                  train_co2_emitted, train_sum_of_price);
     }
-
 }
 /**
  * This function handles outputting the optimal train route, so that it is not repeated in the code
@@ -196,4 +208,20 @@ void print_optimal_plane_route(size_t number_of_plane_stations, Station* optimal
     printf("Plane: Travel time: %d hours and %d minutes, Co2 emission: %lf kg, estimated cost: %lf €.\n", plane_hours, plane_minutes, plane_co2_emitted, plane_sum_of_price);
     printf("These are all the stations on your optimal plane route: \n");
     print_stations(number_of_plane_stations, optimal_plane_route);
+}
+/**
+ * Checks whether the two routes are identical
+ * @param number_of_train_stations
+ * @param optimal_train_route
+ * @param optimal_plane_route
+ * @return
+ */
+int check_optimal_route(size_t number_of_train_stations, Station* optimal_train_route, Station* optimal_plane_route){
+    for(int i = 0; i < number_of_train_stations; i++)
+        if(optimal_plane_route[i].name == optimal_train_route[0].name){
+
+        }else{
+            return 0;
+        }
+    return 1;
 }

@@ -20,3 +20,5 @@ void print_optimal_train_route(size_t number_of_train_stations, Station* optimal
 
 
 void print_optimal_plane_route(size_t number_of_plane_stations, Station* optimal_plane_route, int plane_hours, int plane_minutes, float plane_co2_emitted, float plane_sum_of_price);
+
+int check_optimal_route(size_t number_of_train_stations, Station* optimal_train_route, Station* optimal_plane_route);

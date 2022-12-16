@@ -52,11 +52,7 @@ float calculate_price(Station* stations) {
                 else if (stations[i].connections[j].route->type == RAIL && i == 0) {
                     sum_of_prices += (float) 2.5;
                 }
-                if (stations[i].connections[j].route->type == RAIL) {
-                    last_connection_train = true;
-                } else {
-                    last_connection_train = false;
-                }
+                last_connection_train = (stations[i].connections[j].route->type == RAIL) ? true : false;
             }
         }
     }

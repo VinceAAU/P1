@@ -7,7 +7,6 @@
 #define AIR_CO2_PER_KM (float)0.0888
 #define RAIL_CO2_PER_KM (float)0.0215
 
-
 /**
  * Takes the time and splits them up in hours and minutes
  * Converts the hours and minutes to seconds and adds them into the seconds variable
@@ -86,7 +85,7 @@ float calculate_co2(Station* stations){
                         break;
                     default:
                         /* In case of unexpected travel type, it terminates the program with an error message. */
-                        printf("TravelType is neither AIR nor RAIL.");
+                        fprintf(stderr, "TravelType is neither AIR nor RAIL. \n");
                         exit(EXIT_FAILURE);
                 }
             }

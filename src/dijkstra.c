@@ -8,18 +8,20 @@
 #define INFINITY 999999 // must be higher than all route durations combined.
 
 /*
- * TODO: Test Airplane Inclusion
- * TODO: Fix segfault when allocating a second matrix
  * TODO: Account for route changes by checking timetables
- * TODO: Actually free memory lol
- * if a route change is required, check the timetable and add
+ *
+* if a route change is required, check the timetable and add
  * the time difference to the cost matrix
-
- *make a seperate cost matrix, which includes planes
- *
- *
+ * TODO: Actually free memory lol
  */
 
+/**
+ * Indexes array so a stations ID represents its position in the array. This allows makes it easier to make a matrix for the connections.
+ * @param number_of_stations
+ * @param station_array array to be indexed
+ * @note This functions doesn't create new pointers for connections and routes, so attempting to free it will probably free some of the original array aswell.
+ * @return pointer to indexed array
+ */
 Station * index_station_array(size_t number_of_stations, Station* station_array)
 {
     Station *array = (Station *) malloc(number_of_stations * sizeof(Station));
@@ -35,7 +37,14 @@ Station * index_station_array(size_t number_of_stations, Station* station_array)
 
     return array;
 }
-
+/**
+ * Indexes array so a stations ID represents its position in the array. This allows makes it easier to make a matrix for the connections.
+ * @param number_of_stations
+ * @param station_array array to create matrix from. Must be indexed!
+ * @param allow_planes_bool
+ * @note station_array must be indexed with index_station_array. Will cause segfault if it receives faulty data.
+ * @return pointer to adjacency matrix
+ */
 int* create_adjacency_matrix_for_dijkstra_algorithm(size_t number_of_stations, Station* station_array, int allow_planes_bool ) {
     int (*adjacency_matrix)[number_of_stations] = malloc(sizeof(int[number_of_stations][number_of_stations]));
 
@@ -78,7 +87,11 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(size_t number_of_stations, S
   //  print_matrix(23,*adjacency_matrix);
     return *adjacency_matrix;
 }
-
+/**
+ * Reverses the order of an array. This is a simple fix to calculate_optimal_route returning station list in the wrong order
+ * @param array array to be reversed
+ * @param length number of elements in array
+ */
 void reverse_array(Station array[], int length)
 {
     Station temp[length];
@@ -92,7 +105,20 @@ void reverse_array(Station array[], int length)
     }
 }
 
-Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t number_of_stations, Station* station_array, int current_time, int *output_time)
+
+/**
+ * @param adjacency_matrix adjacency matrix, must be the same size as number_of_stations^2
+ * @param startnode start station
+ * @param endnode end station
+ * @param number_of_stations total number of stations
+ * @param station_array all stations available to travel to/from
+ * @param current_time when the user begins their travel
+ * @param output_time output parameter, which gives the total travel time
+ * @return Array of stations in the optimal route. Length of the array depends on the length of the route.
+ * returns null if there is no possible route between startnode and endnode
+ * @note train travel is still used when airtravel is allowed. This can lead to the function returning only train routes despite using the AIR type.
+ */
+Station* calculate_optimal_route(int* adjacency_matrix, int startnode,int endnode, size_t number_of_stations, Station* station_array, int current_time, int *output_time)
 {
     Station* indexed_array = index_station_array(number_of_stations, station_array);
     int cost[number_of_stations][number_of_stations], distance[number_of_stations], predecessor[number_of_stations];
@@ -101,17 +127,16 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
     startnode -=65;
     endnode -=65;
     // -65 on the nodes is a hotfix. This wouldn't work if stations had ids beyond one letter
-    // *(G + i * number_of_stations + j) is the same as G[i][j]
+    // *(adjacency_matrix + i * number_of_stations + j) is the same as G[i][j] in 2d arrays, but that syntax isn't allowed here
 
-    /* TODO:
-     * put this part in create adjacency matrix instead
-     * it is currently here for debugging purposes */
+
+    // sets all the zeros i.e
     for (i = 0; i < number_of_stations; i++)
         for (j = 0; j < number_of_stations; j++)
-            if (*(G + i * number_of_stations + j) == 0)
+            if (*(adjacency_matrix + i * number_of_stations + j) == 0)
                 cost[i][j] = INFINITY;
             else
-                cost[i][j] = *(G + i * number_of_stations + j);
+                cost[i][j] = *(adjacency_matrix + i * number_of_stations + j);
 
   //  print_matrix(23,*cost);
  //   printf("startNode %d",startnode);
@@ -187,7 +212,11 @@ Station* calculate_optimal_route(int* G, int startnode,int endnode, size_t numbe
     return optimal_path;
 
 }
-
+/**
+ * Creates some random data used debugging before the actual data is available
+ * @param size size of the array of stations
+ * @return array of stations
+ */
 Station* debugging_data(int size)
 {
     // doesn't free of the memory it uses but hardly matters because it's for debugging only.
@@ -225,6 +254,11 @@ Station* debugging_data(int size)
     return stations;
 }
 
+/**
+ * Prints an adjacency matrix. Used for debugging
+ * @param size amount of stations in the matrix
+ * @param matrix pointer to an adjacency matrix
+ */
 void print_matrix(int size, int*matrix)
 {
     int i, j;
@@ -236,6 +270,18 @@ void print_matrix(int size, int*matrix)
     }
 }
 
+/**Simply combines create_adjacency_matrix with calculate_optimal_path so you don't have to in main
+ * @param number_of_stations total number of stations
+ * @param station_array all stations available to travel to/from
+ * @param travel_type determines whether dijkstra's will allow travel by air
+ * @param current_time when the user begins their travel
+ * @param output_time output parameter, which gives the total travel time
+ * @param start_node start station ID
+ * @param end_node end station ID
+ * @return Array of stations in the optimal route. Length of the array depends on the length of the route.
+ * returns null if there is no possible route between startnode and endnode
+ * @note train travel is still used when airtravel is allowed. This can lead to the function returning only train routes despite using the AIR type.
+ */
 Station* run_dijkstras(size_t total_number_of_stations, Station* all_stations, TravelType travel_type, int current_time, int* output_time, ID start_node, ID end_node)
 {
     int * matrixrail;

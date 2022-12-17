@@ -77,7 +77,11 @@ int select_preference() {
 
     return preference;
 }
-
+/**
+ * This function takes in a station array and the length of the array and then prints all the stations in the array
+ * @param number_of_stations
+ * @param station_array
+ */
 void print_stations(size_t number_of_stations, Station* station_array) {
     for(int i = 0; i < number_of_stations; i++) {
         printf("Station: %c \n", station_array[i].id);

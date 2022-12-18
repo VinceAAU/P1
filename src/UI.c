@@ -11,7 +11,7 @@ Station* start_station_from_user (Station* station){
     bool station_is_valid = false;
 
     while (station_is_valid == false) {
-        printf("Where does your journey start from\n");
+        printf("Where does your journey start from? \n(Please write in 'Station X' format) \n");
         fgets(user_input_start_station, BUFFER_SIZE, stdin);
         user_input_start_station[strlen(user_input_start_station) - 1] = '\0';
 
@@ -28,7 +28,7 @@ Station* end_station_from_user (Station* station){
     bool station_is_valid = false;
 
     while (station_is_valid == false) {
-        printf("Where does your journey end\n");
+        printf("Where does your journey end? \n(Please write in 'Station X' format) \n");
         fgets(user_input_end_station, BUFFER_SIZE, stdin);
         user_input_end_station[strlen(user_input_end_station) - 1] = '\0';
 
@@ -64,7 +64,7 @@ int journey_start_time_from_user() {
  */
 int select_preference() {
     int preference = -1;
-    printf("What would you like the program to prioritise \n"
+    printf("What would you like the program to prioritise? \n"
            "Write: '0' for Time \n"
            "Write: '1' for Climate \n"
            "Write: '2' for Price \n" );
@@ -84,7 +84,7 @@ int select_preference() {
  */
 void print_stations(size_t number_of_stations, Station* station_array) {
     for(int i = 0; i < number_of_stations; i++) {
-        printf("Station: %c \n", station_array[i].id);
+        printf("Station %c \n", station_array[i].id);
     }
 }
 
@@ -179,7 +179,7 @@ void output_result(Station* optimal_train_route, int train_sum_of_time, float tr
 
         }
     }else{
-        printf("There i no fast route with planes\n");
+        printf("There is no viable route by plane. \n");
         print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes,
                                   train_co2_emitted, train_sum_of_price);
     }

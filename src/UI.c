@@ -58,7 +58,8 @@ int journey_start_time_from_user() {
 }
 
 /**
- * Havde ingen ide om hvordan den tidligere kode fungerede, så lavede bare noget der burde virke.
+ * This function asks the user what they would preference when deciding on trains or planes
+ * They would have to pick either 0,1 or 2 to choose time, climate or price
  * @param preference
  * @return
  */

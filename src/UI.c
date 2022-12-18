@@ -223,9 +223,7 @@ void print_optimal_plane_route(size_t number_of_plane_stations, Station* optimal
  */
 int check_identical_route(size_t number_of_train_stations, Station* optimal_train_route, Station* optimal_plane_route){
     for(int i = 0; i < number_of_train_stations; i++){
-        if(optimal_plane_route[i].name == optimal_train_route[i].name){
-
-        }else{
+        if(strcmp(optimal_plane_route[i].name, optimal_train_route[i].name) != 0){
             return 1;
         }
     }

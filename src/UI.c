@@ -15,11 +15,11 @@ Station* start_station_from_user (Station* station){
         fgets(user_input_start_station, BUFFER_SIZE, stdin);
         user_input_start_station[strlen(user_input_start_station) - 1] = '\0';
 
-        // checking if the station is in our list and returning a true if the station is present
+        // checks if the station is in our list and returns a true if the station is present
         station_is_valid = (bool) get_station_by_name(station, user_input_start_station);
     }
 
-    // returns the station by id
+    // returns the station by name
     return get_station_by_name(station, user_input_start_station);
 }
 
@@ -32,11 +32,11 @@ Station* end_station_from_user (Station* station){
         fgets(user_input_end_station, BUFFER_SIZE, stdin);
         user_input_end_station[strlen(user_input_end_station) - 1] = '\0';
 
-        // checking if the station is in our list and returning a true if the station is present
+        // checks if the station is in our list and returns a true if the station is present
         station_is_valid = (bool) get_station_by_name(station, user_input_end_station);
     }
 
-    // returns the station by id
+    // returns the station by name
     return get_station_by_name(station, user_input_end_station);
 }
 

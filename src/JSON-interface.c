@@ -56,7 +56,7 @@ Station *retrieve_JSON_data(char *filename) {
     //We will do that at the end
 
     //Put all routes into memory
-    cJSON* route_array_json = cJSON_GetObjectItem(json, "routes");
+    cJSON* route_array_json = cJSON_GetObjectItem(json, "connections");
     Route* route_array = malloc((cJSON_GetArraySize(route_array_json) + 1) * sizeof(Route));
     cJSON* route_json;
     i = 0;
@@ -100,7 +100,7 @@ Station *retrieve_JSON_data(char *filename) {
 
             //Get Connection timetable
             int k = 0;
-            cJSON* timetable_json = cJSON_GetObjectItem(station_connection_json, "timetable");
+            cJSON* timetable_json = cJSON_GetObjectItem(station_connection_json, "timetables");
             int* timetable = malloc((cJSON_GetArraySize(timetable_json)) * sizeof(int));
             cJSON* time_json;
             cJSON_ArrayForEach(time_json, timetable_json){

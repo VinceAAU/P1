@@ -151,7 +151,7 @@ char *read_entire_file(char *filename) {
 }
 
 ID convert_string_to_id(char* string_id){
-    int id = 0;
+    ID id = 0;
     for(int j = 0; j < strlen(string_id); j++){
         id ^= (ID) string_id[j] << ((j % sizeof(ID)) * 8); //I guess this is a way
     }

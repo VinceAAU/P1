@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define INFINITY 999999 // must be higher than all route durations combined.
+#define INFINITY 999999 //
+#define MIDNIGHT 86400
 
 /*
  * TODO: Account for route changes by checking timetables
@@ -23,7 +24,7 @@
 
 int get_route_switch_time(int current_time, Station first_station, Station second_station)
 {
-    int midnight = 86400;
+    int midnight = MIDNIGHT;
     int next_departure = 0;
     size_t time_table_length = 0;
     int *time_table = NULL;
@@ -40,7 +41,6 @@ int get_route_switch_time(int current_time, Station first_station, Station secon
     }
     if(time_table == NULL)
     {
-
         fprintf(stderr, "Error: Stations do not connect\n");
         return 0;
     } else {
@@ -226,11 +226,15 @@ Station* calculate_optimal_route(int* adjacency_matrix, int startnode,int endnod
                 else if(current_line != check_line_switch(station_array[predecessor[i]],station_array[i]))
                 {
                     printf("added time: %d at switch from %s to %s\n", get_route_switch_time(current_time,station_array[predecessor[i]],station_array[i]), station_array[i].name,station_array[predecessor[i]].name);
-                    distance[i] += get_route_switch_time(current_time,station_array[predecessor[i]],station_array[i]);
                     current_time = start_time + distance[i];
-              //      printf("distance to %s is now %d\n",station_array[i].name,distance[i]);
+                    if(current_time >= MIDNIGHT) {
+
+                    }
+                    distance[i] += get_route_switch_time(current_time,station_array[predecessor[i]],station_array[i]);
+                    printf("the time is now: %d at when going to station %s\n", current_time, station_array[i].name);
+                //  printf("distance to %s is now %d\n",station_array[i].name,distance[i]);
                     current_line = check_line_switch(station_array[predecessor[i]],station_array[i]);
-                 //   printf("changed to line %d when going from %s to %s\n", current_line,station_array[predecessor[i]].name, station_array[i].name);
+                    //   printf("changed to line %d when going from %s to %s\n", current_line,station_array[predecessor[i]].name, station_array[i].name);
                 }
                 min_distance = distance[i];
                 next_node = i;
@@ -267,6 +271,7 @@ Station* calculate_optimal_route(int* adjacency_matrix, int startnode,int endnod
     for(i = 0; j != startnode; i++ )
     {
         j = predecessor[j];
+        printf("duration to %s is %d\n", station_array[j].name , distance[j]);
         optimal_path[i+1] = station_array[j];
     }
 

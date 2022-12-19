@@ -49,7 +49,32 @@ Station *get_station_by_name(Station *station_list, char *name) {
     //If two stations have the same name, this will just return the first
     for (int i = 0; i < station_list_length(station_list); i++) {
         if (strcmp(station_list[i].name, name) == 0) {
-            return &station_list[i];
+            return station_list + i;
+        }
+    }
+    return NULL;
+}
+
+size_t route_list_length(Route *route_list) {
+    if (route_list == NULL) {
+        return 0;
+    }
+
+    size_t i = 0;
+    while (route_list[i].node1 != NULL) {
+        i++;
+    }
+
+    return i;
+}
+
+Route *get_route_by_stations(Route *route_list, Station *start, Station *end) {
+    Station *node1 = (start->id) < (end->id) ? start : end;
+    Station *node2 = (start->id) > (end->id) ? start : end;
+
+    for (int i = 0; i < route_list_length(route_list); ++i) {
+        if (route_list[i].node1 == node1 && route_list[i].node2 == node2) {
+            return route_list + i;
         }
     }
     return NULL;

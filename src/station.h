@@ -39,10 +39,14 @@ typedef struct Station {
 /*
  * Returns length of the station list
  */
-size_t station_list_length(Station*);
+size_t station_list_length(Station *);
 
 Station *get_station_by_id(Station *station_list, ID id);
 
 Station *get_station_by_name(Station *station_list, char *name);
 
-size_t connection_list_length(Connection* connection_list);
+size_t connection_list_length(Connection *connection_list);
+
+size_t route_list_length(Route *route_list);
+
+Route *get_route_by_stations(Route *route_list, Station *start, Station *end);

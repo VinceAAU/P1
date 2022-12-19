@@ -129,7 +129,7 @@ Station* calculate_optimal_route(int* adjacency_matrix, int startnode,int endnod
     // -65 on the nodes is a hotfix. This wouldn't work if stations had ids beyond one letter
     // *(adjacency_matrix + i * number_of_stations + j) is the same as G[i][j] in 2d arrays, but that syntax isn't allowed here
 
-
+//
     // sets all the zeros i.e
     for (i = 0; i < number_of_stations; i++)
         for (j = 0; j < number_of_stations; j++)

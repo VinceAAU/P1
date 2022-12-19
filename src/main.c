@@ -41,6 +41,7 @@ int main(void) {
     print_stations(optimal_planes,optimal_plane_route);
 */
 
+
      //Calculating the price and CO2 emitted for the train route.
     train_sum_of_price = calculate_price(optimal_train_route);
     train_co2_emitted = calculate_co2(optimal_train_route);

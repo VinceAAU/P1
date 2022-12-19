@@ -108,12 +108,9 @@ Station *retrieve_JSON_data(char *filename) {
             connection.timetable_length = cJSON_GetArraySize(timetable_json);
 
             char *beginning_str = cJSON_GetObjectItem(station_json, "ID")->valuestring;
+            Station *beginning = get_station_by_id(station_array, convert_string_to_id(beginning_str));
 
-            connection.route = get_route_by_stations(
-                    route_array,
-                    get_station_by_id(station_array, convert_string_to_id(beginning_str)),
-                    get_station_by_id(station_array, convert_string_to_id(destination_str))
-            );
+            connection.route = get_route_by_stations(route_array, beginning, connection.station);
 
             station_connection_array[j] = connection;
             j++;

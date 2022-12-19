@@ -41,13 +41,6 @@ Station *retrieve_JSON_data(char *filename) {
 
         station_array[i].id = convert_string_to_id(string_id);
 
-        /*cJSON* connection_array_json = cJSON_GetObjectItem(station_json, "connections");
-        station_array[i].connections = calloc(cJSON_GetArraySize(connection_array_json)+1, sizeof(Connection));
-        cJSON* connection_json;
-        cJSON_ArrayForEach(connection_json, connection_array_json){
-            //FIXME: Uhh how do we reference stations that don't yet exist?
-        }*/
-
         i++;
     }
     station_array[i] = (Station){0};

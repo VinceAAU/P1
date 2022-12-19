@@ -11,15 +11,15 @@ Station* start_station_from_user (Station* station){
     bool station_is_valid = false;
 
     while (station_is_valid == false) {
-        printf("Where does your journey start from\n");
+        printf("Where does your journey start from? \n(Please write in 'Station X' format) \n");
         fgets(user_input_start_station, BUFFER_SIZE, stdin);
         user_input_start_station[strlen(user_input_start_station) - 1] = '\0';
 
-        // checking if the station is in our list and returning a true if the station is present
+        // checks if the station is in our list and returns a true if the station is present
         station_is_valid = (bool) get_station_by_name(station, user_input_start_station);
     }
 
-    // returns the station by id
+    // returns the station by name
     return get_station_by_name(station, user_input_start_station);
 }
 
@@ -28,15 +28,15 @@ Station* end_station_from_user (Station* station){
     bool station_is_valid = false;
 
     while (station_is_valid == false) {
-        printf("Where does your journey end\n");
+        printf("Where does your journey end? \n(Please write in 'Station X' format) \n");
         fgets(user_input_end_station, BUFFER_SIZE, stdin);
         user_input_end_station[strlen(user_input_end_station) - 1] = '\0';
 
-        // checking if the station is in our list and returning a true if the station is present
+        // checks if the station is in our list and returns a true if the station is present
         station_is_valid = (bool) get_station_by_name(station, user_input_end_station);
     }
 
-    // returns the station by id
+    // returns the station by name
     return get_station_by_name(station, user_input_end_station);
 }
 
@@ -58,13 +58,14 @@ int journey_start_time_from_user() {
 }
 
 /**
- * Havde ingen ide om hvordan den tidligere kode fungerede, så lavede bare noget der burde virke.
+ * This function asks the user what they would preference when deciding on trains or planes
+ * They would have to pick either 0,1 or 2 to choose time, climate or price
  * @param preference
  * @return
  */
 int select_preference() {
     int preference = -1;
-    printf("What would you like the program to prioritise \n"
+    printf("What would you like the program to prioritise? \n"
            "Write: '0' for Time \n"
            "Write: '1' for Climate \n"
            "Write: '2' for Price \n" );
@@ -84,7 +85,7 @@ int select_preference() {
  */
 void print_stations(size_t number_of_stations, Station* station_array) {
     for(int i = 0; i < number_of_stations; i++) {
-        printf("Station: %c \n", station_array[i].id);
+        printf("Station %c \n", station_array[i].id);
     }
 }
 
@@ -179,7 +180,7 @@ void output_result(Station* optimal_train_route, int train_sum_of_time, float tr
 
         }
     }else{
-        printf("There i no fast route with planes\n");
+        printf("There is no viable route by plane. \n");
         print_optimal_train_route(number_of_train_stations, optimal_train_route, train_hours, train_minutes,
                                   train_co2_emitted, train_sum_of_price);
     }
@@ -222,9 +223,7 @@ void print_optimal_plane_route(size_t number_of_plane_stations, Station* optimal
  */
 int check_identical_route(size_t number_of_train_stations, Station* optimal_train_route, Station* optimal_plane_route){
     for(int i = 0; i < number_of_train_stations; i++){
-        if(optimal_plane_route[i].name == optimal_train_route[i].name){
-
-        }else{
+        if(strcmp(optimal_plane_route[i].name, optimal_train_route[i].name) != 0){
             return 1;
         }
     }

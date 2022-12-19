@@ -599,42 +599,42 @@
         },
          "C-E": {
              "lineID": 200,
-             "price": 100000000,
+             "price": 61.14984406,
              "distance": 216,
              "type": "air",
              "duration": "0:24"
          },
           "C-M": {
               "lineID": 201,
-              "price": 100000000,
+              "price": 61.60160118,
               "distance": 223,
               "type": "air",
               "duration": "0:25"
           },
            "C-R": {
                "lineID": 202,
-               "price": 100000000,
+               "price": 60.89169713,
                "distance": 212,
                "type": "air",
                "duration": "0:24"
            },
            "E-R": {
                "lineID": 203,
-               "price": 100000000,
+               "price": 61.60160118,
                "distance": 223,
                "type": "air",
                "duration": "0:25"
            },
            "E-M": {
                "lineID": 204,
-               "price": 100000000,
+               "price": 73.02460270,
                "distance": 400,
                "type": "air",
                "duration": "0:45"
            },
            "M-R": {
                "lineID": 205,
-               "price": 100000000,
+               "price": 64.57029084,
                "distance": 269,
                "type": "air",
                "duration": "0:30"

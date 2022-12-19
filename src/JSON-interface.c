@@ -49,14 +49,14 @@ Station *retrieve_JSON_data(char *filename) {
     //We will do that at the end
 
     //Put all routes into memory
-    cJSON* route_array_json = cJSON_GetObjectItem(json, "connections");
-    Route* route_array = malloc((cJSON_GetArraySize(route_array_json) + 1) * sizeof(Route));
+    cJSON *route_array_json = cJSON_GetObjectItem(json, "routes");
+    Route *route_array = malloc((cJSON_GetArraySize(route_array_json) + 1) * sizeof(Route));
     cJSON* route_json;
     i = 0;
     cJSON_ArrayForEach(route_json, route_array_json){
         Route route;
-        char* routeID = route_json->string; //TODO: Name this with whatever name Lasse gives this
-        char* station_string_a = malloc(sizeof(char) * (MAXIMUM_STATION_ID_LENGTH+1));
+        char *routeID = route_json->string;
+        char *station_string_a = malloc(sizeof(char) * (MAXIMUM_STATION_ID_LENGTH + 1));
         char* station_string_b = malloc(sizeof(char) * (MAXIMUM_STATION_ID_LENGTH+1));
         sscanf(routeID, "%[^-]-%s", station_string_a, station_string_b);
 

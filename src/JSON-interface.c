@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "calculate.h"
+#include <limits.h>
 
 #define MAXIMUM_STATION_ID_LENGTH 1000
 
@@ -145,16 +146,15 @@ char *read_entire_file(char *filename) {
 
     //Read the entire file into a string
     char *file_string = malloc(file_size + 1);
-    //fgets(file_string, file_size, file);
     fread(file_string, sizeof(char), file_size, file);
 
     return file_string;
 }
 
 ID convert_string_to_id(char* string_id){
-    int id = 0;
-    for(int j = 0; j < strlen(string_id); j++){
-        id += (ID) string_id[j]<<((j%sizeof(ID))*8); //I guess this is a way
+    ID id = 0;
+    for(int j = 0; j < strlen(string_id); j++) {
+        id ^= (ID) string_id[j] << ((j % sizeof(ID)) * CHAR_BIT); //I guess this is a way
     }
     return id;
 }

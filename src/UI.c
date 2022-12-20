@@ -229,4 +229,3 @@ int check_identical_route(size_t number_of_train_stations, Station* optimal_trai
     }
     return 0;
 }
-//Test branch comment

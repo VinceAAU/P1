@@ -261,7 +261,6 @@ Station* calculate_optimal_route(int* adjacency_matrix, int startnode,int endnod
         }
         if(check_line_switch(optimal_path[i],optimal_path[i+1]) != current_line){
             current_line = check_line_switch(optimal_path[i],optimal_path[i+1]);
-            printf("line is %d\n", current_line);
             if(current_time >= MIDNIGHT)
             {
                 current_time = current_time - MIDNIGHT;

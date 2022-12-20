@@ -26,15 +26,15 @@ int main(void) {
 
  //   printf("First station has %d duration\n",stations[0].connections[0].route->duration);
 
+
     // Finding both the optimal train and plane route.
     Station* optimal_plane_route = run_dijkstras(number_of_stations, stations, AIR, start_time, &plane_sum_time, start_station->id,end_station->id);
     Station* optimal_train_route = run_dijkstras(number_of_stations, stations, RAIL, start_time, &train_sum_time, start_station->id, end_station->id);
 
-
+/*
     size_t optimal_trains = station_list_length(optimal_train_route);
     size_t optimal_planes = station_list_length(optimal_plane_route);
 
-/* debugging stuff
     printf("Route for trains only is: %d\n",train_sum_time);
     print_stations(optimal_trains,optimal_train_route);
     printf("Route with planes allowed is: %d\n", plane_sum_time);

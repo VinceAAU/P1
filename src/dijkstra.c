@@ -5,26 +5,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define INFINITY 999999 //
+#define INFINITY 999999 // must be higher than all route durations combined.
 #define MIDNIGHT 86400
 
-/*
- * TODO: Account for route changes by checking timetables
- *Check route change
- * create new cost matrix adding time to connections, if there is a route change
- * repeat doing this for number of stations
- *
- * alternatively
- * check route changes after dijkstras is finished
- * add time table times to total time
- * won't actually change the fastest path, but will take it into account sort of
- *
- * TODO: Actually free memory lol
- */
 
 int get_route_switch_time(int current_time, Station first_station, Station second_station)
 {
-    int midnight = MIDNIGHT;
     int next_departure = 0;
     size_t time_table_length = 0;
     int *time_table = NULL;
@@ -41,7 +27,6 @@ int get_route_switch_time(int current_time, Station first_station, Station secon
     }
     if(time_table == NULL)
     {
-        fprintf(stderr, "Error: Stations do not connect\n");
         return 0;
     } else {
         next_departure = time_table[0];
@@ -51,13 +36,13 @@ int get_route_switch_time(int current_time, Station first_station, Station secon
             if(time_table[i]-current_time > 0)
             {
                 next_departure = time_table[i];
+                // printf("timetable %d was used \n",i);
                 break;
             }
         }
     }
-    if(current_time >= time_table[time_table_length-1])
-    {
-        return next_departure + (midnight - current_time);
+    if(current_time >= time_table[time_table_length-1]) {
+        return next_departure + (MIDNIGHT - current_time);
     }
     else {
         return next_departure-current_time;
@@ -122,27 +107,27 @@ int* create_adjacency_matrix_for_dijkstra_algorithm(size_t number_of_stations, S
 
         size_t connections = connection_list_length(indexed_array[row].connections);
 
+        for (int i = 0; i < connections; i++) {
+            Connection current_connection = indexed_array[row].connections[i];
+            if(current_connection.route->type == RAIL) {
+                adjacency_matrix[row][current_connection.station->id-65] = indexed_array[row].connections[i].route->duration;
+            }
+        }
+
+        if(allow_planes_bool)
+        {
             for (int i = 0; i < connections; i++) {
                 Connection current_connection = indexed_array[row].connections[i];
-                if(current_connection.route->type == RAIL) {
-                    adjacency_matrix[row][current_connection.station->id-65] = indexed_array[row].connections[i].route->duration;
+                if(current_connection.route->type == AIR)
+                {
+                    adjacency_matrix[row][current_connection.station->id-65] = indexed_array[row].connections[i].route->duration+7200; // 2 hours added for signing in/ going through security in airports
                 }
             }
-
-            if(allow_planes_bool)
-            {
-                for (int i = 0; i < connections; i++) {
-                    Connection current_connection = indexed_array[row].connections[i];
-                    if(current_connection.route->type == AIR)
-                    {
-                        adjacency_matrix[row][current_connection.station->id-65] = indexed_array[row].connections[i].route->duration+7200; // 2 hours added for signing in/ going through security in airports
-                    }
-                }
-            }
+        }
 
     }
 
-  //  print_matrix(23,*adjacency_matrix);
+    //  print_matrix(23,*adjacency_matrix);
     return *adjacency_matrix;
 }
 /**
@@ -180,12 +165,11 @@ Station* calculate_optimal_route(int* adjacency_matrix, int startnode,int endnod
     Station* indexed_array = index_station_array(number_of_stations, station_array);
     int cost[number_of_stations][number_of_stations], distance[number_of_stations], predecessor[number_of_stations];
     int visited[number_of_stations], count, min_distance, next_node, i, j, current_line, current_time = start_time;
-
+    Station * optimal_path;
     startnode -=65;
     endnode -=65;
     // -65 on the nodes is a hotfix. This wouldn't work if stations had ids beyond one letter
     // *(adjacency_matrix + i * number_of_stations + j) is the same as G[i][j] in 2d arrays, but that syntax isn't allowed here
-
 
     // sets all the zeros i.e
     for (i = 0; i < number_of_stations; i++) {
@@ -199,12 +183,9 @@ Station* calculate_optimal_route(int* adjacency_matrix, int startnode,int endnod
         }
     }
 
+
     for (i = 0; i < number_of_stations; i++) {
         distance[i] = cost[startnode][i];
-        if(distance[i] != INFINITY)
-        {
-            distance[i] += get_route_switch_time(current_time,station_array[startnode],station_array[i]);
-        }
         predecessor[i] = startnode;
         visited[i] = 0;
     }
@@ -216,26 +197,8 @@ Station* calculate_optimal_route(int* adjacency_matrix, int startnode,int endnod
         min_distance = INFINITY;
 
         //nextnode gives the node at minimum distance
-        for (i = 0; i < number_of_stations -1; i++) {
+        for (i = 0; i < number_of_stations - 1; i++) {
             if (distance[i] < min_distance && !visited[i]) {
-                if(predecessor[i] == startnode)
-                {
-                    current_line = check_line_switch(station_array[startnode],station_array[i]);
-                  //  printf("first line is %d \n", current_line);
-                }
-                else if(current_line != check_line_switch(station_array[predecessor[i]],station_array[i]))
-                {
-                    printf("added time: %d at switch from %s to %s\n", get_route_switch_time(current_time,station_array[predecessor[i]],station_array[i]), station_array[i].name,station_array[predecessor[i]].name);
-                    current_time = start_time + distance[i];
-                    if(current_time >= MIDNIGHT) {
-
-                    }
-                    distance[i] += get_route_switch_time(current_time,station_array[predecessor[i]],station_array[i]);
-                    printf("the time is now: %d at when going to station %s\n", current_time, station_array[i].name);
-                //  printf("distance to %s is now %d\n",station_array[i].name,distance[i]);
-                    current_line = check_line_switch(station_array[predecessor[i]],station_array[i]);
-                    //   printf("changed to line %d when going from %s to %s\n", current_line,station_array[predecessor[i]].name, station_array[i].name);
-                }
                 min_distance = distance[i];
                 next_node = i;
             }
@@ -259,31 +222,59 @@ Station* calculate_optimal_route(int* adjacency_matrix, int startnode,int endnod
     int counter = 1;
     do {
         j = predecessor[j];
-        counter ++;
+        counter++;
     } while (j != startnode);
 
-    Station *optimal_path = malloc((counter + 1) * sizeof(Station));
-
-    optimal_path[counter] = (Station){0};
+    optimal_path = malloc((counter + 1) * sizeof(Station));
+    optimal_path[counter] = (Station) {0};
 
     j = endnode;
     optimal_path[0] = station_array[endnode];
-    for(i = 0; j != startnode; i++ )
-    {
+    for (i = 0; j != startnode; i++) {
         j = predecessor[j];
-        printf("duration to %s is %d\n", station_array[j].name , distance[j]);
-        optimal_path[i+1] = station_array[j];
+        optimal_path[i + 1] = station_array[j];
     }
 
     *output_time = distance[endnode];
-    if(distance[endnode] == INFINITY)
-    {
+    if (distance[endnode] == INFINITY) {
         return NULL; // returns null if there is no possible route between the two nodes
     }
 
     // reverses array
-    reverse_array(optimal_path,counter);
+    reverse_array(optimal_path, counter);
 
+    int total_time;
+    current_line = 0;
+    current_time = start_time + get_route_switch_time(current_time,optimal_path[0],optimal_path[1]);
+
+    for(i = 0; i < station_list_length(optimal_path); i++ )
+    {
+
+        if(i >= 1) {
+            current_time += distance[optimal_path[i].id-65]-distance[optimal_path[i-1].id-65];
+        }
+        else {
+            current_time += distance[optimal_path[i].id-65];
+        }
+        if(current_line == 0) {
+            current_line = check_line_switch(optimal_path[i],optimal_path[i+1]);
+        }
+        if(check_line_switch(optimal_path[i],optimal_path[i+1]) != current_line){
+            current_line = check_line_switch(optimal_path[i],optimal_path[i+1]);
+            printf("line is %d\n", current_line);
+            if(current_time >= MIDNIGHT)
+            {
+                current_time -= MIDNIGHT;
+            }
+            else
+            {
+                current_time += get_route_switch_time(current_time,optimal_path[i],optimal_path[i+1]);
+                total_time = current_time;
+            }
+        }
+    }
+
+    *output_time = total_time - start_time;
 
     return optimal_path;
 
@@ -313,7 +304,7 @@ Station* debugging_data(int size)
         for(int j = 0; j < 3; j++)
         {
             stations[i].connections[j].route = &route[rand()%2];
-           stations[i].connections[j].station = &stations[rand()%size];
+            stations[i].connections[j].station = &stations[rand()%size];
         }
     }
 
@@ -324,7 +315,7 @@ Station* debugging_data(int size)
 
     for(int j = 0; j < 3; j++)
     {
-      //  printf("%d\n", stations[0].connections[j].station->id);
+        //  printf("%d\n", stations[0].connections[j].station->id);
     }
 
     return stations;
@@ -358,7 +349,7 @@ void print_matrix(int size, int*matrix)
  * returns null if there is no possible route between startnode and endnode
  * @note train travel is still used when airtravel is allowed. This can lead to the function returning only train routes despite using the AIR type.
  */
-    Station* run_dijkstras(size_t total_number_of_stations, Station* all_stations, TravelType travel_type, int current_time, int* output_time, ID start_node, ID end_node)
+Station* run_dijkstras(size_t total_number_of_stations, Station* all_stations, TravelType travel_type, int current_time, int* output_time, ID start_node, ID end_node)
 {
     int * matrixrail;
     int * matrixair;
@@ -371,7 +362,6 @@ void print_matrix(int size, int*matrix)
         matrixrail = create_adjacency_matrix_for_dijkstra_algorithm(total_number_of_stations, all_stations, 0);
         optimal_route = calculate_optimal_route(matrixrail, start_node, end_node, total_number_of_stations, all_stations, current_time, output_time);
     }
-
 
     return optimal_route;
 }

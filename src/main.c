@@ -45,4 +45,6 @@ int main(void) {
                   optimal_plane_route, plane_sum_time, plane_co2_emitted, plane_sum_of_price,
                   preference);
 
+    //Scans for an arbitrary number to prevent the console from shutting down, if the program is run through the .exe file.
+    scanf("%d", &start_time);
 }
